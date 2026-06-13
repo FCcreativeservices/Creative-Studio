@@ -1611,6 +1611,16 @@
   <nav_data>
     <outline>
       <links>
+        <slidelink slideid="_player.6daw93KQrwE" displaytext="Parody Burger" expand="true" type="slide">
+          <links>
+            <slidelink slideid="_player.6daw93KQrwE.6Eh3O9sQfPl" displaytext="Cover" expand="false" type="slide" />
+          </links>
+        </slidelink>
+        <slidelink slideid="_player.6VII6EGEkTI" displaytext="Music" expand="true" type="slide">
+          <links>
+            <slidelink slideid="_player.6VII6EGEkTI.63jObYpt5nv" displaytext="Music Slide" expand="false" type="slide" />
+          </links>
+        </slidelink>
         <slidelink slideid="_player.5fhSop5t5QA" displaytext="Build Salad" expand="true" type="slide">
           <links>
             <slidelink slideid="_player.5fhSop5t5QA.6amzv7lkUsd" displaytext="Salad" expand="false" type="slide" />

@@ -49,25 +49,26 @@ if (audio.duration > 0 && !audio.paused) {
 
 window.Script4 = function()
 {
-  var audio = document.getElementById('bgSong');
-audio.volume = 0.0;
+  var bgAudio = document.getElementById("bgSong");
+if (bgAudio) {
+    bgAudio.pause();
+    bgAudio.remove(); // elimina el elemento del DOM
+}
+
 }
 
 window.Script5 = function()
 {
   var audios = document.querySelectorAll("audio, video");
 audios.forEach(function(media) {
-    media.muted = !media.muted;
+    media.muted = false; // Fuerza que arranquen con sonido
 });
 }
 
 window.Script6 = function()
 {
-  var player = GetPlayer();
-var volume = player.GetVar("MusicVolume");
-
-var audio = document.getElementById('bgSong');
-audio.volume = volume;
+  var audio = document.getElementById('bgSong');
+audio.volume = 0.0;
 }
 
 window.Script7 = function()
@@ -83,6 +84,23 @@ window.Script8 = function()
   var player = GetPlayer();
 var volume = player.GetVar("MusicVolume");
 
+var audio = document.getElementById('bgSong');
+audio.volume = volume;
+}
+
+window.Script9 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script10 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
 function add_line() {
   var line = document.createElement("audio");
   var head = document.getElementsByTagName('body')[0];
@@ -112,27 +130,10 @@ if (audio.duration > 0 && !audio.paused) {
 }
 }
 
-window.Script9 = function()
+window.Script11 = function()
 {
   var audio = document.getElementById('bgSong');
 audio.volume = 0.0;
-}
-
-window.Script10 = function()
-{
-  var audios = document.querySelectorAll("audio, video");
-audios.forEach(function(media) {
-    media.muted = !media.muted;
-});
-}
-
-window.Script11 = function()
-{
-  var player = GetPlayer();
-var volume = player.GetVar("MusicVolume");
-
-var audio = document.getElementById('bgSong');
-audio.volume = volume;
 }
 
 window.Script12 = function()
@@ -148,6 +149,23 @@ window.Script13 = function()
   var player = GetPlayer();
 var volume = player.GetVar("MusicVolume");
 
+var audio = document.getElementById('bgSong');
+audio.volume = volume;
+}
+
+window.Script14 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script15 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
 function add_line() {
   var line = document.createElement("audio");
   var head = document.getElementsByTagName('body')[0];
@@ -177,27 +195,10 @@ if (audio.duration > 0 && !audio.paused) {
 }
 }
 
-window.Script14 = function()
+window.Script16 = function()
 {
   var audio = document.getElementById('bgSong');
 audio.volume = 0.0;
-}
-
-window.Script15 = function()
-{
-  var audios = document.querySelectorAll("audio, video");
-audios.forEach(function(media) {
-    media.muted = !media.muted;
-});
-}
-
-window.Script16 = function()
-{
-  var player = GetPlayer();
-var volume = player.GetVar("MusicVolume");
-
-var audio = document.getElementById('bgSong');
-audio.volume = volume;
 }
 
 window.Script17 = function()
@@ -213,6 +214,23 @@ window.Script18 = function()
   var player = GetPlayer();
 var volume = player.GetVar("MusicVolume");
 
+var audio = document.getElementById('bgSong');
+audio.volume = volume;
+}
+
+window.Script19 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script20 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
 function add_line() {
   var line = document.createElement("audio");
   var head = document.getElementsByTagName('body')[0];
@@ -242,13 +260,13 @@ if (audio.duration > 0 && !audio.paused) {
 }
 }
 
-window.Script19 = function()
+window.Script21 = function()
 {
   var audio = document.getElementById('bgSong');
 audio.volume = 0.0;
 }
 
-window.Script20 = function()
+window.Script22 = function()
 {
   var audios = document.querySelectorAll("audio, video");
 audios.forEach(function(media) {
@@ -256,7 +274,7 @@ audios.forEach(function(media) {
 });
 }
 
-window.Script21 = function()
+window.Script23 = function()
 {
   var player = GetPlayer();
 var volume = player.GetVar("MusicVolume");
@@ -265,7 +283,143 @@ var audio = document.getElementById('bgSong');
 audio.volume = volume;
 }
 
-window.Script22 = function()
+window.Script24 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script25 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
+function add_line() {
+  var line = document.createElement("audio");
+  var head = document.getElementsByTagName('body')[0];
+  line.type = "audio/mp3";
+  line.src = "";
+  line.id = "bgSong";
+  line.autoplay = true;
+  line.loop = true;
+  head.appendChild(line);
+}
+
+if (document.getElementById('bgSong') == null) {
+  add_line();
+  var audio = document.getElementById('bgSong');
+  audio.volume = volume;
+}
+
+var audio = document.getElementById('bgSong');
+this.Location = player.GetVar("location");
+
+if (audio.duration > 0 && !audio.paused) {
+  // already playing
+} else {
+  audio.src = Location + "Music.mp3";
+  audio.load();
+  audio.play();
+}
+}
+
+window.Script26 = function()
+{
+  var audio = document.getElementById('bgSong');
+audio.volume = 0.0;
+}
+
+window.Script27 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script28 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
+var audio = document.getElementById('bgSong');
+audio.volume = volume;
+}
+
+window.Script29 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script30 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
+function add_line() {
+  var line = document.createElement("audio");
+  var head = document.getElementsByTagName('body')[0];
+  line.type = "audio/mp3";
+  line.src = "";
+  line.id = "bgSong";
+  line.autoplay = true;
+  line.loop = true;
+  head.appendChild(line);
+}
+
+if (document.getElementById('bgSong') == null) {
+  add_line();
+  var audio = document.getElementById('bgSong');
+  audio.volume = volume;
+}
+
+var audio = document.getElementById('bgSong');
+this.Location = player.GetVar("location");
+
+if (audio.duration > 0 && !audio.paused) {
+  // already playing
+} else {
+  audio.src = Location + "Music.mp3";
+  audio.load();
+  audio.play();
+}
+}
+
+window.Script31 = function()
+{
+  var audio = document.getElementById('bgSong');
+audio.volume = 0.0;
+}
+
+window.Script32 = function()
+{
+  var audio = document.getElementById('bgSong');
+audio.volume = 0.0;
+}
+
+window.Script33 = function()
+{
+  var audios = document.querySelectorAll("audio, video");
+audios.forEach(function(media) {
+    media.muted = !media.muted;
+});
+}
+
+window.Script34 = function()
+{
+  var player = GetPlayer();
+var volume = player.GetVar("MusicVolume");
+
+var audio = document.getElementById('bgSong');
+audio.volume = volume;
+}
+
+window.Script35 = function()
 {
   var audios = document.querySelectorAll("audio, video");
 audios.forEach(function(media) {
