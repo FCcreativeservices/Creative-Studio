@@ -1,0 +1,1549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Build With Us — FranConnect Creative Services</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ── TOKENS ── */
+:root {
+  --blue:    #134564;
+  --orange:  #E07300;
+  --blue2:   #17669B;
+  --red2:    #AC3446;
+  --dark:    #717171;
+  --light:   #CFCDC9;
+  --white:   #FFFFFF;
+  --off:     #F5F6F8;
+  --text:    #1A1A1A;
+  --border:  #E2E4E8;
+  --radius:  14px;
+  --rad-sm:  8px;
+  --shadow:  0 2px 16px rgba(0,0,0,.08);
+  --shadow-lg: 0 8px 40px rgba(0,0,0,.14);
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0;}
+html{scroll-behavior:smooth;}
+body{font-family:'Poppins',sans-serif;color:var(--text);background:var(--white);overflow-x:hidden;}
+
+/* ── STICKY CART ── */
+#cart{
+  position:fixed;bottom:24px;right:24px;z-index:999;
+  background:var(--blue);color:white;
+  border-radius:60px;padding:12px 20px 12px 16px;
+  display:flex;align-items:center;gap:12px;
+  box-shadow:0 8px 32px rgba(19,69,100,.35);
+  cursor:pointer;transition:all .3s;
+  min-width:200px;
+}
+#cart:hover{transform:translateY(-2px);box-shadow:0 12px 40px rgba(19,69,100,.45);}
+#cart .c-icon{width:36px;height:36px;background:rgba(255,255,255,.15);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;}
+#cart .c-label{font-size:10px;text-transform:uppercase;letter-spacing:.08em;opacity:.7;font-weight:500;}
+#cart .c-amount{font-size:18px;font-weight:700;line-height:1.1;}
+#cart .c-cta{
+  background:var(--orange);color:white;border:none;border-radius:40px;
+  padding:7px 14px;font-size:11px;font-weight:700;cursor:pointer;
+  white-space:nowrap;font-family:'Poppins',sans-serif;margin-left:auto;
+  transition:.2s;
+}
+#cart.active{background:var(--orange);}
+
+/* ── NAV ── */
+nav{
+  position:fixed;top:0;left:0;right:0;z-index:100;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:14px 48px;
+  background:rgba(19,69,100,.95);
+  backdrop-filter:blur(20px);
+  border-bottom:1px solid rgba(255,255,255,.08);
+}
+.nav-brand{display:flex;align-items:center;gap:14px;}
+.nav-logo-img{height:28px;}
+.nav-logo-svg{display:flex;align-items:center;}
+.nav-divider{width:1px;height:24px;background:rgba(255,255,255,.2);}
+.nav-title{font-size:12px;font-weight:600;color:rgba(255,255,255,.8);letter-spacing:.04em;}
+.nav-links{display:flex;gap:4px;}
+.nav-links a{color:rgba(255,255,255,.75);text-decoration:none;font-size:13px;font-weight:500;padding:8px 16px;border-radius:40px;transition:.2s;}
+.nav-links a:hover{color:white;background:rgba(255,255,255,.1);}
+.nav-cta{background:var(--orange)!important;color:white!important;font-weight:600!important;}
+.nav-cta:hover{background:#c96600!important;}
+
+/* ── HERO ── */
+#hero{
+  min-height:100vh;
+  background:linear-gradient(140deg,#0b2a3e 0%,#134564 50%,#17669B 100%);
+  display:flex;flex-direction:column;align-items:center;justify-content:center;
+  text-align:center;padding:120px 48px 80px;position:relative;overflow:hidden;
+}
+#hero::after{
+  content:'';position:absolute;inset:0;
+  background:radial-gradient(ellipse 70% 50% at 50% 60%,rgba(224,115,0,.12) 0%,transparent 70%);
+  pointer-events:none;
+}
+.hero-eyebrow{
+  display:inline-flex;align-items:center;gap:8px;
+  background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.15);
+  border-radius:40px;padding:7px 16px;
+  font-size:11px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;
+  color:rgba(255,255,255,.85);margin-bottom:28px;
+}
+.hero-eyebrow-dot{width:6px;height:6px;background:var(--orange);border-radius:50%;}
+#hero h1{
+  font-size:clamp(44px,6.5vw,82px);font-weight:800;color:white;
+  line-height:1.05;letter-spacing:-.03em;max-width:860px;margin-bottom:20px;
+}
+#hero h1 em{color:var(--orange);font-style:normal;}
+#hero p{font-size:17px;color:rgba(255,255,255,.68);max-width:520px;line-height:1.65;margin-bottom:52px;}
+.hero-cards{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;max-width:860px;}
+.hc{
+  background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.12);
+  border-radius:var(--radius);padding:26px 28px;cursor:pointer;
+  transition:all .3s;text-align:left;flex:1;min-width:230px;max-width:270px;
+  text-decoration:none;display:block;
+}
+.hc:hover{background:rgba(255,255,255,.13);border-color:rgba(224,115,0,.45);transform:translateY(-3px);}
+.hc-icon{margin-bottom:14px;}
+.hc-icon svg{width:28px;height:28px;stroke:var(--orange);fill:none;stroke-width:1.8;}
+.hc-title{font-size:16px;font-weight:700;color:white;margin-bottom:6px;}
+.hc-desc{font-size:12px;color:rgba(255,255,255,.55);line-height:1.55;}
+.hc-link{display:flex;align-items:center;gap:5px;font-size:11px;font-weight:700;color:var(--orange);margin-top:14px;text-transform:uppercase;letter-spacing:.06em;}
+
+/* ── SECTION SHELL ── */
+.section{padding:90px 48px;}
+.sec-wrap{max-width:1160px;margin:0 auto;}
+.sec-eye{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--orange);margin-bottom:10px;}
+.sec-title{font-size:clamp(28px,3.5vw,46px);font-weight:800;color:var(--blue);line-height:1.1;letter-spacing:-.025em;margin-bottom:12px;}
+.sec-sub{font-size:15px;color:var(--dark);max-width:520px;line-height:1.65;margin-bottom:48px;}
+
+/* ── PLATFORM ── */
+#platform{background:var(--off);}
+.plat-hero{border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-lg);aspect-ratio:16/7;background:var(--blue);margin-bottom:52px;position:relative;}
+.plat-hero video{width:100%;height:100%;object-fit:cover;display:block;}
+.plat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:18px;}
+.pc{
+  background:white;border-radius:var(--radius);overflow:hidden;
+  box-shadow:var(--shadow);cursor:pointer;transition:all .3s;
+  border:2px solid transparent;
+  display:flex;flex-direction:column;
+}
+.pc:hover{transform:translateY(-3px);box-shadow:var(--shadow-lg);border-color:rgba(224,115,0,.3);}
+.pc.sel{border-color:var(--blue);}
+.pc-media{position:relative;aspect-ratio:16/10;background:var(--blue);overflow:hidden;flex-shrink:0;}
+.pc-media img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s;}
+.pc:hover .pc-media img{transform:scale(1.04);}
+.pc-play{
+  position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+  background:rgba(0,0,0,0);transition:.3s;opacity:0;
+}
+.pc:hover .pc-play{opacity:1;background:rgba(0,0,0,.35);}
+.pc-play svg{width:44px;height:44px;stroke:white;fill:none;stroke-width:1.5;filter:drop-shadow(0 2px 8px rgba(0,0,0,.4));}
+.pc-body{padding:18px;display:flex;flex-direction:column;flex:1;}
+.pc-name{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:5px;}
+.pc-desc{font-size:12px;color:var(--dark);line-height:1.5;margin-bottom:12px;flex:1;}
+.pc-price{font-size:19px;font-weight:800;color:var(--blue);}
+.pc-price span{font-size:11px;font-weight:400;color:var(--dark);}
+.pc-btn{
+  width:100%;margin-top:12px;padding:9px;border-radius:var(--rad-sm);
+  border:2px solid var(--blue);background:transparent;color:var(--blue);
+  font-size:12px;font-weight:700;cursor:pointer;transition:.2s;font-family:'Poppins',sans-serif;
+  align-self:flex-end;
+}
+.pc-btn:hover{background:var(--blue);color:white;}
+.pc.sel .pc-btn{background:var(--orange);border-color:var(--orange);color:white;}
+.tmpl-addons{
+  margin-top:16px;background:white;border-radius:var(--radius);
+  border:2px solid var(--border);padding:20px 24px;display:none;
+}
+.tmpl-addons.show{display:block;}
+.tmpl-addons h4{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:14px;}
+.ac-list{display:flex;gap:10px;flex-wrap:wrap;}
+.ac{
+  display:flex;align-items:center;gap:8px;
+  background:var(--off);border-radius:var(--rad-sm);padding:9px 14px;
+  cursor:pointer;border:2px solid transparent;transition:.2s;
+}
+.ac:hover{border-color:var(--orange);}
+.ac.on{border-color:var(--blue);background:rgba(19,69,100,.05);}
+.ac-name{font-size:12px;font-weight:600;color:var(--text);}
+.ac-price{font-size:11px;color:var(--orange);font-weight:700;}
+
+/* ── VIDEO ── */
+#video{background:#0c1922;}
+.vid-hero{border-radius:var(--radius);overflow:hidden;box-shadow:0 12px 56px rgba(0,0,0,.5);aspect-ratio:16/7;background:#1a2535;margin-bottom:48px;}
+.vid-hero video{width:100%;height:100%;object-fit:cover;display:block;}
+.vid-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;}
+.vc{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.09);border-radius:var(--radius);overflow:hidden;transition:.3s;}
+.vc:hover{border-color:rgba(224,115,0,.45);}
+.vc-top{display:flex;align-items:stretch;border-bottom:1px solid rgba(255,255,255,.07);}
+.vc-cover{width:130px;flex-shrink:0;background:#1a2535;overflow:hidden;}
+.vc-cover img{width:100%;height:100%;object-fit:cover;display:block;}
+.vc-info{padding:18px 20px;flex:1;}
+.vc-name{font-size:16px;font-weight:700;color:white;margin-bottom:5px;}
+.vc-desc{font-size:12px;color:rgba(255,255,255,.5);line-height:1.55;}
+.vc-ctrl{padding:18px 20px;}
+.vc-lbl{font-size:10px;font-weight:600;letter-spacing:.08em;text-transform:uppercase;color:rgba(255,255,255,.35);margin-bottom:8px;}
+.pslider{
+  -webkit-appearance:none;width:100%;height:5px;border-radius:3px;outline:none;cursor:pointer;
+  background:linear-gradient(to right,var(--orange) 0%,var(--orange) var(--pct,0%),rgba(255,255,255,.12) var(--pct,0%));
+  margin-bottom:8px;
+}
+.pslider::-webkit-slider-thumb{-webkit-appearance:none;width:18px;height:18px;border-radius:50%;background:white;border:3px solid var(--orange);cursor:pointer;box-shadow:0 2px 8px rgba(224,115,0,.4);}
+.sticks{display:flex;justify-content:space-between;font-size:10px;color:rgba(255,255,255,.3);}
+.vprice{font-size:24px;font-weight:800;color:white;margin-top:8px;}
+.vprice sub{font-size:11px;font-weight:400;color:rgba(255,255,255,.4);}
+.qty-row{display:flex;align-items:center;gap:10px;margin-top:12px;}
+.qbtn{width:30px;height:30px;border-radius:50%;background:rgba(255,255,255,.09);border:1px solid rgba(255,255,255,.18);color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.qbtn:hover{background:rgba(224,115,0,.3);}
+.qval{font-size:18px;font-weight:700;color:white;min-width:24px;text-align:center;}
+.ptype-row{display:flex;gap:7px;flex-wrap:wrap;margin-bottom:14px;}
+.ptb{flex:1;padding:8px 6px;border-radius:var(--rad-sm);border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:rgba(255,255,255,.7);font-size:11px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Poppins',sans-serif;}
+.ptb:hover,.ptb.on{background:rgba(224,115,0,.2);border-color:var(--orange);color:var(--orange);}
+.add-btn{
+  width:100%;margin-top:14px;padding:11px;border-radius:var(--rad-sm);
+  background:var(--blue2);border:none;color:white;
+  font-size:13px;font-weight:700;cursor:pointer;transition:.2s;font-family:'Poppins',sans-serif;
+}
+.add-btn:hover{background:var(--blue);transform:translateY(-1px);}
+.vo-opts{display:flex;gap:14px;flex-wrap:wrap;margin-top:10px;}
+.vo-opt{display:flex;align-items:center;gap:7px;cursor:pointer;color:rgba(255,255,255,.65);font-size:12px;}
+.vo-opt input{accent-color:var(--orange);width:15px;height:15px;}
+.vo-opt-price{color:var(--orange);font-weight:700;margin-left:3px;}
+
+/* ── TRAINING ── */
+#training{background:var(--white);}
+/* wizard progress */
+.wiz-bar{display:flex;align-items:flex-start;justify-content:center;gap:0;max-width:680px;margin:0 auto 52px;}
+.ws{display:flex;flex-direction:column;align-items:center;flex:1;position:relative;}
+.ws:not(:last-child)::after{content:'';position:absolute;top:15px;left:50%;right:-50%;height:2px;background:var(--border);z-index:0;}
+.ws.done:not(:last-child)::after{background:var(--blue);}
+.ws-dot{width:30px;height:30px;border-radius:50%;background:var(--border);color:var(--dark);display:flex;align-items:center;justify-content:center;font-size:12px;font-weight:700;z-index:1;transition:.3s;}
+.ws.act .ws-dot{background:var(--orange);color:white;box-shadow:0 0 0 4px rgba(224,115,0,.18);}
+.ws.done .ws-dot{background:var(--blue);color:white;}
+.ws-lbl{font-size:10px;color:var(--dark);margin-top:5px;font-weight:500;text-align:center;white-space:nowrap;}
+.ws.act .ws-lbl{color:var(--orange);font-weight:700;}
+.ws.done .ws-lbl{color:var(--blue);}
+/* steps */
+.wstep{display:none;}
+.wstep.act{display:block;}
+.sq{font-size:clamp(20px,2.8vw,30px);font-weight:800;color:var(--blue);text-align:center;margin-bottom:6px;}
+.sh{font-size:14px;color:var(--dark);text-align:center;margin-bottom:36px;}
+/* topic cards — 5 in a row */
+.tt-row{display:flex;gap:12px;flex-wrap:wrap;justify-content:center;}
+.tt{
+  background:var(--off);border-radius:var(--radius);border:2px solid var(--border);
+  padding:22px 18px;cursor:pointer;transition:all .25s;text-align:center;
+  flex:1;min-width:140px;max-width:180px;
+}
+.tt:hover{border-color:var(--orange);transform:translateY(-2px);}
+.tt.sel{border-color:var(--blue);background:rgba(19,69,100,.05);}
+.tt-icon svg{width:28px;height:28px;stroke:var(--blue2);fill:none;stroke-width:1.8;margin-bottom:10px;}
+.tt.sel .tt-icon svg{stroke:var(--orange);}
+.tt-name{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:4px;}
+.tt-tag{font-size:11px;color:var(--dark);line-height:1.4;}
+/* length cards */
+.ml-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+.ml{
+  background:white;border-radius:var(--radius);border:2px solid var(--border);
+  padding:28px 24px;cursor:pointer;transition:all .25s;text-align:center;
+  flex:1;min-width:210px;max-width:260px;box-shadow:var(--shadow);
+}
+.ml:hover{border-color:var(--orange);transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.ml.sel{border-color:var(--blue);background:rgba(19,69,100,.03);}
+.ml-emoji{font-size:36px;margin-bottom:12px;display:block;}
+.ml-name{font-size:18px;font-weight:800;color:var(--blue);margin-bottom:4px;}
+.ml-time{font-size:12px;color:var(--orange);font-weight:700;margin-bottom:8px;}
+.ml-desc{font-size:12px;color:var(--dark);line-height:1.5;}
+/* style cards */
+.vs-row{display:flex;gap:18px;justify-content:center;flex-wrap:wrap;}
+.vsc{
+  background:white;border-radius:var(--radius);border:2px solid var(--border);
+  overflow:hidden;cursor:pointer;transition:all .25s;
+  flex:1;min-width:240px;max-width:300px;box-shadow:var(--shadow);
+}
+.vsc:hover,.vsc.sel{border-color:var(--blue);transform:translateY(-3px);box-shadow:var(--shadow-lg);}
+.vsc.sel{border-color:var(--orange);}
+.vsc-media{aspect-ratio:16/9;background:var(--blue);position:relative;overflow:hidden;}
+.vsc-media img{width:100%;height:100%;object-fit:cover;display:block;transition:.4s;}
+.vsc:hover .vsc-media img{transform:scale(1.04);}
+.vsc-play{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:0;background:rgba(0,0,0,0);transition:.3s;}
+.vsc:hover .vsc-play{opacity:1;background:rgba(0,0,0,.35);}
+.vsc-play svg{width:40px;height:40px;stroke:white;fill:none;stroke-width:1.5;}
+.vsc-body{padding:16px 18px;}
+.vsc-name{font-size:14px;font-weight:700;color:var(--blue);margin-bottom:3px;}
+.vsc-desc{font-size:11px;color:var(--dark);line-height:1.45;margin-bottom:10px;}
+.vsc-note{font-size:10px;color:var(--orange);font-weight:700;margin-bottom:8px;}
+.vsc-from{font-size:10px;color:var(--dark);}
+.vsc-price{font-size:20px;font-weight:800;color:var(--blue);}
+/* addon cards */
+.ao-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.ao{
+  background:var(--off);border-radius:var(--radius);border:2px solid var(--border);
+  padding:18px 20px;cursor:pointer;transition:.2s;
+  display:flex;align-items:flex-start;gap:12px;
+}
+.ao:hover{border-color:var(--orange);}
+.ao.sel{border-color:var(--blue);background:rgba(19,69,100,.04);}
+.ao-chk{width:20px;height:20px;border-radius:5px;border:2px solid var(--border);flex-shrink:0;margin-top:2px;display:flex;align-items:center;justify-content:center;transition:.2s;}
+.ao.sel .ao-chk{background:var(--blue);border-color:var(--blue);}
+.ao-chk svg{width:11px;height:11px;stroke:white;fill:none;stroke-width:2.5;display:none;}
+.ao.sel .ao-chk svg{display:block;}
+.ao-name{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:3px;}
+.ao-desc{font-size:11px;color:var(--dark);line-height:1.4;margin-bottom:6px;}
+.ao-price{font-size:13px;font-weight:700;color:var(--orange);}
+.ao-qwrap{margin-top:10px;display:none;align-items:center;gap:8px;}
+.ao.sel .ao-qwrap{display:flex;}
+.ao-qlbl{font-size:11px;color:var(--dark);}
+.ao-qty{width:65px;padding:5px 8px;border:1px solid var(--border);border-radius:6px;font-size:13px;font-weight:600;text-align:center;font-family:'Poppins',sans-serif;}
+/* extras */
+.ex-row{display:flex;gap:14px;flex-wrap:wrap;justify-content:center;}
+.ex{
+  background:var(--off);border-radius:var(--radius);border:2px solid var(--border);
+  padding:22px 20px;cursor:pointer;transition:.2s;text-align:center;
+  flex:1;min-width:190px;max-width:230px;
+}
+.ex:hover{border-color:var(--orange);}
+.ex.sel{border-color:var(--blue);background:rgba(19,69,100,.04);}
+.ex-icon svg{width:28px;height:28px;stroke:var(--blue2);fill:none;stroke-width:1.8;margin-bottom:8px;}
+.ex.sel .ex-icon svg{stroke:var(--orange);}
+.ex-name{font-size:13px;font-weight:700;color:var(--blue);margin-bottom:3px;}
+.ex-desc{font-size:11px;color:var(--dark);margin-bottom:8px;line-height:1.4;}
+.ex-price{font-size:14px;font-weight:700;color:var(--orange);}
+/* activ-no-addons message */
+.activ-msg{
+  background:rgba(19,69,100,.05);border:1px solid rgba(19,69,100,.15);
+  border-radius:var(--radius);padding:32px;text-align:center;
+}
+.activ-msg svg{width:40px;height:40px;stroke:var(--blue2);fill:none;stroke-width:1.5;margin-bottom:12px;}
+.activ-msg p{font-size:14px;color:var(--dark);line-height:1.6;margin-bottom:16px;}
+.activ-msg .activ-go-back{color:var(--blue);font-weight:700;cursor:pointer;text-decoration:underline;}
+.activ-msg .activ-continue{background:var(--blue);color:white;border:none;border-radius:40px;padding:10px 24px;font-size:13px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;margin-left:10px;}
+.activ-msg .activ-continue:hover{background:var(--blue2);}
+/* training summary */
+.train-sum{background:linear-gradient(135deg,var(--blue),var(--blue2));border-radius:var(--radius);padding:36px;color:white;text-align:center;}
+.train-sum h3{font-size:26px;font-weight:800;margin-bottom:6px;}
+.train-sum p{color:rgba(255,255,255,.65);margin-bottom:24px;font-size:14px;}
+.sum-lines{text-align:left;background:rgba(255,255,255,.1);border-radius:var(--rad-sm);padding:18px;margin-bottom:20px;}
+.sl{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(255,255,255,.09);font-size:13px;}
+.sl:last-child{border:none;}
+.sl-name{color:rgba(255,255,255,.8);}
+.sl-price{font-weight:700;color:white;}
+.sum-total{font-size:38px;font-weight:800;margin:12px 0 6px;}
+.sum-note{font-size:11px;color:rgba(255,255,255,.45);margin-bottom:22px;}
+.sum-cta{background:var(--orange);color:white;border:none;border-radius:40px;padding:14px 36px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+.sum-cta:hover{background:#c96600;transform:translateY(-2px);}
+/* wiz nav */
+.wiz-nav{display:flex;justify-content:center;gap:10px;margin-top:44px;}
+.wbtn-back{padding:12px 26px;border-radius:40px;border:2px solid var(--border);background:transparent;color:var(--dark);font-size:13px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Poppins',sans-serif;}
+.wbtn-back:hover{border-color:var(--blue);color:var(--blue);}
+.wbtn-next{padding:12px 32px;border-radius:40px;background:var(--blue);border:none;color:white;font-size:13px;font-weight:700;cursor:pointer;transition:.2s;font-family:'Poppins',sans-serif;}
+.wbtn-next:hover{background:var(--orange);transform:translateY(-1px);}
+.wbtn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;}
+.recipe-note{background:rgba(224,115,0,.08);border:1px solid rgba(224,115,0,.22);border-radius:var(--rad-sm);padding:12px 16px;text-align:center;font-size:12px;color:#7a3a0a;margin-bottom:20px;}
+
+/* ── ADDON STEPPER CARD ── */
+.ao-stepper-card{
+  background:white;border-radius:var(--radius);border:2px solid var(--border);
+  padding:20px 24px;display:flex;align-items:center;gap:20px;
+  transition:.25s;box-shadow:var(--shadow);
+}
+.ao-stepper-card.aosc-active{border-color:var(--blue);background:rgba(19,69,100,.03);}
+.aosc-left{flex:1;}
+.aosc-right{display:flex;flex-direction:column;align-items:center;gap:8px;flex-shrink:0;}
+.aosc-stepper{display:flex;align-items:center;gap:0;background:var(--off);border-radius:40px;border:1.5px solid var(--border);overflow:hidden;}
+.aosc-btn{width:44px;height:44px;border:none;background:transparent;font-size:24px;font-weight:700;cursor:pointer;color:var(--blue);transition:.15s;display:flex;align-items:center;justify-content:center;font-family:'Poppins',sans-serif;line-height:1;}
+.aosc-btn:hover{background:rgba(19,69,100,.1);}
+.aosc-plus{color:var(--orange);}
+.aosc-val{min-width:48px;text-align:center;font-size:26px;font-weight:800;color:var(--blue);}
+.aosc-included{font-size:10px;font-weight:700;color:var(--blue2);text-transform:uppercase;letter-spacing:.06em;background:rgba(23,102,155,.1);border-radius:20px;padding:3px 10px;white-space:nowrap;}
+.aosc-name{font-size:15px;font-weight:700;color:var(--blue);margin-bottom:3px;}
+.aosc-desc{font-size:12px;color:var(--dark);line-height:1.4;margin-bottom:6px;}
+.aosc-price-per{font-size:12px;color:var(--orange);font-weight:600;margin-bottom:8px;}
+.aosc-summary{font-size:12px;color:var(--text);line-height:1.6;}
+.aosc-inc-tag{background:rgba(23,102,155,.1);color:var(--blue2);font-weight:700;border-radius:4px;padding:2px 7px;font-size:11px;margin-right:4px;}
+.aosc-add-tag{background:rgba(224,115,0,.12);color:var(--orange);font-weight:700;border-radius:4px;padding:2px 7px;font-size:11px;margin-right:4px;}
+.aosc-add-cost{font-size:13px;font-weight:700;color:var(--orange);margin-top:4px;}
+/* no-addon message styled */
+.no-addon-msg{
+  background:rgba(19,69,100,.04);border:1px solid rgba(19,69,100,.12);
+  border-radius:var(--radius);padding:28px 32px;text-align:center;
+}
+.no-addon-msg svg{width:36px;height:36px;stroke:var(--blue2);fill:none;stroke-width:1.5;margin-bottom:10px;}
+.no-addon-msg p{font-size:13px;color:var(--dark);line-height:1.6;}
+/* recipe 3+2 grid - 3 on top, 2 centered below */
+.vs-row.recipe-grid{display:flex;flex-wrap:wrap;justify-content:center;gap:18px;}
+.vs-row.recipe-grid .vsc{flex:0 0 calc(33.333% - 12px);min-width:220px;max-width:340px;}
+@media(max-width:920px){.vs-row.recipe-grid .vsc{flex:0 0 calc(50% - 9px);}}
+/* ── DEMO SECTION ── */
+.demo-wrap{
+  background:linear-gradient(135deg,rgba(19,69,100,.06),rgba(23,102,155,.08));
+  border:2px solid rgba(19,69,100,.12);
+  border-radius:var(--radius);
+  padding:36px;
+  margin-bottom:56px;
+}
+.demo-header{display:flex;align-items:flex-start;justify-content:space-between;flex-wrap:wrap;gap:16px;margin-bottom:24px;}
+.demo-badge{
+  display:inline-flex;align-items:center;gap:7px;
+  background:var(--orange);color:white;
+  border-radius:40px;padding:5px 14px;
+  font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;
+  margin-bottom:10px;
+}
+.demo-badge svg{width:12px;height:12px;stroke:white;fill:none;stroke-width:2.5;}
+.demo-title{font-size:22px;font-weight:800;color:var(--blue);margin-bottom:6px;}
+.demo-desc{font-size:13px;color:var(--dark);line-height:1.6;max-width:500px;}
+.demo-cta-hint{font-size:12px;color:var(--blue2);font-weight:600;margin-top:10px;display:flex;align-items:center;gap:6px;}
+.demo-cta-hint svg{width:14px;height:14px;stroke:var(--blue2);fill:none;stroke-width:2;}
+.demo-frame-wrap{
+  position:relative;border-radius:12px;overflow:hidden;
+  box-shadow:0 8px 40px rgba(19,69,100,.18);
+  background:var(--blue);
+}
+.demo-frame-wrap::before{
+  content:'';position:absolute;top:0;left:0;right:0;height:3px;
+  background:linear-gradient(90deg,var(--blue),var(--orange),var(--blue2));
+  z-index:2;
+}
+.demo-frame{width:100%;height:560px;border:none;display:block;}
+.demo-try-btn{
+  display:inline-flex;align-items:center;gap:8px;
+  background:var(--blue);color:white;border:none;border-radius:40px;
+  padding:12px 24px;font-size:13px;font-weight:700;cursor:pointer;
+  font-family:'Poppins',sans-serif;transition:.2s;white-space:nowrap;
+}
+.demo-try-btn:hover{background:var(--blue2);transform:translateY(-1px);}
+.demo-try-btn svg{width:15px;height:15px;stroke:white;fill:none;stroke-width:2;}
+/* ── CSM BANNER ── */
+#csm{background:linear-gradient(135deg,var(--orange),#f09000);padding:72px 48px;text-align:center;}
+#csm h2{font-size:clamp(26px,3.5vw,44px);font-weight:800;color:white;margin-bottom:10px;}
+#csm p{font-size:15px;color:rgba(255,255,255,.82);margin-bottom:32px;max-width:520px;margin-left:auto;margin-right:auto;}
+.csm-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.csm-p{background:white;color:var(--orange);border:none;border-radius:40px;padding:14px 36px;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;}
+.csm-p:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(0,0,0,.18);}
+.csm-s{background:transparent;color:white;border:2px solid rgba(255,255,255,.5);border-radius:40px;padding:14px 28px;font-size:14px;font-weight:600;cursor:pointer;transition:.2s;font-family:'Poppins',sans-serif;}
+.csm-s:hover{border-color:white;}
+
+/* ── MODAL ── */
+#moverlay{position:fixed;inset:0;z-index:500;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;}
+#moverlay.open{display:flex;}
+.mbox{background:#0c1922;border-radius:18px;overflow:hidden;max-width:860px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.8);position:relative;}
+.mclose{position:absolute;top:14px;right:14px;z-index:10;width:34px;height:34px;border-radius:50%;background:rgba(255,255,255,.14);border:none;color:white;font-size:16px;cursor:pointer;display:flex;align-items:center;justify-content:center;}
+.mclose:hover{background:rgba(255,255,255,.25);}
+.mvid{width:100%;display:block;aspect-ratio:16/9;}
+
+/* ── FOOTER ── */
+footer{background:#0c1922;padding:32px 48px;display:flex;align-items:center;justify-content:space-between;}
+footer .fl{font-size:12px;font-weight:600;color:rgba(255,255,255,.35);}
+
+/* ── RESPONSIVE ── */
+@media(max-width:920px){
+  nav{padding:12px 20px;}
+  .nav-links{display:none;}
+  .section{padding:64px 20px;}
+  .plat-grid{grid-template-columns:1fr 1fr;}
+  .vid-grid{grid-template-columns:1fr;}
+  #cart{right:12px;bottom:12px;min-width:170px;}
+}
+@media(max-width:600px){.plat-grid{grid-template-columns:1fr;}#hero h1{font-size:36px;}}
+</style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-brand">
+    <div class="nav-logo-svg"><svg viewBox="0 0 1867 446.19" xmlns="http://www.w3.org/2000/svg" style="height:26px;width:auto;fill:white;"><path d="M159.55,276.89,342.84,171.56l116.05,60.29L329.43,297.19c-50.91,25.7-115.15,20.58-159.73-12.72Z"/><path d="M458.89,231.85V168.63a53.73,53.73,0,0,0-32.47-49.35L149.67,0l.06,1.05c3,51.27,36.27,97.64,88.1,122.93Z"/><path d="M299.34,169.3,116.05,274.62,0,214.33,129.46,149c50.91-25.69,115.15-20.57,159.74,12.73Z"/><path d="M0,214.33v50.1A73.68,73.68,0,0,0,44.52,332.1l264.7,114.09-.06-1.06c-3-51.26-36.27-97.63-88.09-122.92Z"/><path d="M546.2,343.53V238L535,236.26a13.17,13.17,0,0,1-5.84-2.57,6.43,6.43,0,0,1-2.2-5.22V215.79H546.2v-9.55a55.76,55.76,0,0,1,3.33-19.85A40.25,40.25,0,0,1,574.21,162a58.37,58.37,0,0,1,20.1-3.26,55.83,55.83,0,0,1,16.58,2.38l-.63,15.58a4.93,4.93,0,0,1-1,2.83,5.61,5.61,0,0,1-2.33,1.63,12.56,12.56,0,0,1-3.33.75,39,39,0,0,1-4,.19,37.06,37.06,0,0,0-9.87,1.2,16.63,16.63,0,0,0-7.35,4.14,19,19,0,0,0-4.58,7.78,39.31,39.31,0,0,0-1.57,12v8.54h33.54v22.1H577.22V343.53Z"/><path d="M656.48,237q6-11.55,14.32-18.15a30.57,30.57,0,0,1,19.6-6.59q8.91,0,14.32,3.89l-2,23.24a6,6,0,0,1-1.81,3.2,5,5,0,0,1-3.21,1,36.22,36.22,0,0,1-5.58-.63,43.28,43.28,0,0,0-7.23-.63,25.9,25.9,0,0,0-9.17,1.51,23.08,23.08,0,0,0-7.22,4.33,29.48,29.48,0,0,0-5.65,6.85,65.67,65.67,0,0,0-4.59,9.16v79.39h-31V214.66h18.22q4.77,0,6.66,1.69t2.51,6.09Z"/><path d="M716.27,232.62q22.25-20.35,53.52-20.35A52.32,52.32,0,0,1,790,216a42.66,42.66,0,0,1,15.07,10.29A44.14,44.14,0,0,1,814.44,242a60.42,60.42,0,0,1,3.2,20.09v81.4H803.58a14.21,14.21,0,0,1-6.79-1.32c-1.59-.88-2.85-2.65-3.77-5.33l-2.76-9.3a113,113,0,0,1-9.55,7.73,56.29,56.29,0,0,1-9.67,5.58,52.1,52.1,0,0,1-10.74,3.46,62.28,62.28,0,0,1-12.62,1.19,49.68,49.68,0,0,1-15.08-2.2,33.08,33.08,0,0,1-11.93-6.59,29.53,29.53,0,0,1-7.79-10.93,38.79,38.79,0,0,1-2.76-15.2,30.53,30.53,0,0,1,1.63-9.74,28.47,28.47,0,0,1,5.34-9.22,44.5,44.5,0,0,1,9.61-8.3,62.88,62.88,0,0,1,14.51-6.78,124.51,124.51,0,0,1,20-4.71,202.4,202.4,0,0,1,26.13-2.2v-7.54q0-12.93-5.53-19.15t-16-6.22a37.87,37.87,0,0,0-12.49,1.76,50.86,50.86,0,0,0-8.74,4q-3.76,2.19-6.85,4a13.43,13.43,0,0,1-6.84,1.76,9,9,0,0,1-5.53-1.69,14.07,14.07,0,0,1-3.64-4Zm71.1,55.89a171.43,171.43,0,0,0-22.61,2.33,60.35,60.35,0,0,0-14.7,4.33q-5.52,2.64-7.91,6.16a13.37,13.37,0,0,0-2.39,7.66q0,8.16,4.84,11.68t12.63,3.52a36.71,36.71,0,0,0,16.51-3.46,49.13,49.13,0,0,0,13.63-10.48Z"/><path d="M875.8,230.48a84,84,0,0,1,8.23-7.22,51.05,51.05,0,0,1,19.53-9.3,51.82,51.82,0,0,1,12.06-1.32,46.2,46.2,0,0,1,18.72,3.59,37,37,0,0,1,13.63,10,44.09,44.09,0,0,1,8.28,15.45,65.49,65.49,0,0,1,2.83,19.79v82h-31v-82q0-11.81-5.41-18.28t-16.46-6.47a32.3,32.3,0,0,0-15.07,3.64,54,54,0,0,0-13.31,9.93v93.2h-31V214.66h19q6,0,7.91,5.65Z"/><path d="M1080.79,241.91a14.89,14.89,0,0,1-2.7,2.77,6.2,6.2,0,0,1-3.83,1,8.46,8.46,0,0,1-4.64-1.45c-1.51-1-3.31-2-5.41-3.26a41,41,0,0,0-7.47-3.27,34.43,34.43,0,0,0-10.73-1.44,32.92,32.92,0,0,0-14.33,3,27.23,27.23,0,0,0-10.24,8.48,38.24,38.24,0,0,0-6.09,13.38,71.88,71.88,0,0,0-2,17.77,69.5,69.5,0,0,0,2.19,18.34,39.31,39.31,0,0,0,6.34,13.5,27.33,27.33,0,0,0,10.05,8.3,30.52,30.52,0,0,0,13.32,2.82,33.18,33.18,0,0,0,12-1.82,38.21,38.21,0,0,0,7.72-4q3.13-2.19,5.46-4a8.27,8.27,0,0,1,5.21-1.82,6.29,6.29,0,0,1,5.66,2.89l8.92,11.3A56.25,56.25,0,0,1,1079,334.43a60.44,60.44,0,0,1-12.5,6.53,63.64,63.64,0,0,1-13.32,3.45,93.59,93.59,0,0,1-13.62,1,57.21,57.21,0,0,1-22.49-4.46,53.1,53.1,0,0,1-18.46-13A62,62,0,0,1,986.15,307a80.7,80.7,0,0,1-4.59-28.2,81.71,81.71,0,0,1,4.09-26.31,59.57,59.57,0,0,1,12-21,54.88,54.88,0,0,1,19.6-13.88q11.67-5,26.88-5,14.45,0,25.31,4.65A62,62,0,0,1,1089,230.6Z"/><path d="M1164.34,212.64a70.18,70.18,0,0,1,26.05,4.65,57,57,0,0,1,20.1,13.19,57.87,57.87,0,0,1,12.88,20.85,86.37,86.37,0,0,1,0,55.15,59.08,59.08,0,0,1-12.88,21,56.12,56.12,0,0,1-20.1,13.32,70.18,70.18,0,0,1-26.05,4.65,71.08,71.08,0,0,1-26.26-4.65,56.19,56.19,0,0,1-20.16-13.32,59.93,59.93,0,0,1-12.94-21,85.3,85.3,0,0,1,0-55.15,58.69,58.69,0,0,1,12.94-20.85,57.09,57.09,0,0,1,20.16-13.19A71.08,71.08,0,0,1,1164.34,212.64Zm0,108.91q16.07,0,23.8-10.8t7.72-31.66q0-20.83-7.72-31.77t-23.8-10.93q-16.33,0-24.19,11t-7.85,31.71q0,20.73,7.85,31.59T1164.34,321.55Z"/><path d="M1280.65,230.48a84,84,0,0,1,8.23-7.22,51.05,51.05,0,0,1,19.53-9.3,51.82,51.82,0,0,1,12.06-1.32,46.2,46.2,0,0,1,18.72,3.59,37,37,0,0,1,13.63,10,44.09,44.09,0,0,1,8.28,15.45,65.49,65.49,0,0,1,2.83,19.79v82h-31v-82q0-11.81-5.41-18.28T1311,236.76A32.3,32.3,0,0,0,1296,240.4a54,54,0,0,0-13.31,9.93v93.2h-31V214.66h19q6,0,7.91,5.65Z"/><path d="M1422.34,230.48a82.88,82.88,0,0,1,8.23-7.22,51.05,51.05,0,0,1,19.53-9.3,51.82,51.82,0,0,1,12.06-1.32,46.12,46.12,0,0,1,18.71,3.59,36.84,36.84,0,0,1,13.63,10,44.1,44.1,0,0,1,8.29,15.45,65.49,65.49,0,0,1,2.83,19.79v82h-31v-82q0-11.81-5.4-18.28t-16.46-6.47a32.3,32.3,0,0,0-15.07,3.64,53.86,53.86,0,0,0-13.31,9.93v93.2h-31V214.66h19q6,0,7.91,5.65Z"/><path d="M1558.88,283a61.17,61.17,0,0,0,3.51,17.15,35,35,0,0,0,7.29,11.92,28.45,28.45,0,0,0,10.74,7,39,39,0,0,0,13.76,2.33,42.32,42.32,0,0,0,13-1.77,60.78,60.78,0,0,0,9.55-3.89q4.08-2.13,7.16-3.89a12,12,0,0,1,6-1.76,6.43,6.43,0,0,1,5.78,2.89l8.91,11.3A51.61,51.61,0,0,1,1633,334.43a64.92,64.92,0,0,1-13.38,6.53,73.42,73.42,0,0,1-14.19,3.45,101.78,101.78,0,0,1-14,1,68.85,68.85,0,0,1-25-4.46,55.84,55.84,0,0,1-20.1-13.19,61.93,61.93,0,0,1-13.45-21.61q-4.89-12.87-4.9-29.83a71.32,71.32,0,0,1,4.28-24.81,59.47,59.47,0,0,1,12.24-20.22A57.6,57.6,0,0,1,1564,217.67a64.08,64.08,0,0,1,25.93-5,63,63,0,0,1,22.48,3.9,48.93,48.93,0,0,1,17.72,11.36,52.79,52.79,0,0,1,11.62,18.35,68.4,68.4,0,0,1,4.21,24.8c0,4.69-.51,7.86-1.51,9.49s-2.93,2.45-5.78,2.45ZM1618,264.27a37.37,37.37,0,0,0-1.7-11.37,26.83,26.83,0,0,0-5.09-9.35,23.61,23.61,0,0,0-8.6-6.35,29.48,29.48,0,0,0-12.12-2.32q-13.44,0-21.17,7.66t-9.86,21.73Z"/><path d="M1761.48,241.91a15.21,15.21,0,0,1-2.7,2.77,6.24,6.24,0,0,1-3.83,1,8.5,8.5,0,0,1-4.65-1.45c-1.5-1-3.3-2-5.4-3.26a41,41,0,0,0-7.47-3.27,34.45,34.45,0,0,0-10.74-1.44,32.85,32.85,0,0,0-14.32,3,27.23,27.23,0,0,0-10.24,8.48,38.24,38.24,0,0,0-6.09,13.38,71.86,71.86,0,0,0-2,17.77,69.48,69.48,0,0,0,2.2,18.34,39.13,39.13,0,0,0,6.34,13.5,27.25,27.25,0,0,0,10,8.3,30.49,30.49,0,0,0,13.32,2.82,33.09,33.09,0,0,0,12-1.82,38,38,0,0,0,7.73-4q3.13-2.19,5.46-4a8.27,8.27,0,0,1,5.21-1.82,6.3,6.3,0,0,1,5.65,2.89l8.92,11.3a56.25,56.25,0,0,1-11.18,10.12,60.44,60.44,0,0,1-12.5,6.53,63.8,63.8,0,0,1-13.32,3.45,93.62,93.62,0,0,1-13.63,1,57.19,57.19,0,0,1-22.49-4.46,53.1,53.1,0,0,1-18.46-13,62,62,0,0,1-12.5-20.92,80.7,80.7,0,0,1-4.59-28.2,82,82,0,0,1,4.08-26.31,59.74,59.74,0,0,1,12-21,54.79,54.79,0,0,1,19.6-13.88q11.67-5,26.88-5,14.45,0,25.31,4.65a62,62,0,0,1,19.53,13.31Z"/><path d="M1833.21,345.54q-16.83,0-25.81-9.48t-9-26.19v-72h-13.18a6,6,0,0,1-4.27-1.63,6.38,6.38,0,0,1-1.76-4.9V219.05l20.73-3.39,6.53-35.17a6.84,6.84,0,0,1,2.39-3.9,7.13,7.13,0,0,1,4.51-1.38h16.08v40.58h34.42v22.1h-34.42v69.85q0,6,3,9.41a10.2,10.2,0,0,0,8.11,3.4,14.4,14.4,0,0,0,4.84-.7,25.61,25.61,0,0,0,3.38-1.44c1-.5,1.83-1,2.58-1.45a4.4,4.4,0,0,1,2.26-.69,3.6,3.6,0,0,1,2.26.69,10.77,10.77,0,0,1,1.89,2.08l9.29,15.07a46.9,46.9,0,0,1-15.57,8.54A57.94,57.94,0,0,1,1833.21,345.54Z"/></svg></div>
+    <span style="display:none;" class="nav-logo-fallback"></span>
+    <div class="nav-divider"></div>
+    <span class="nav-title">Creative Services</span>
+  </div>
+  <div class="nav-links">
+    <a href="#platform">Platform</a>
+    <a href="#video">Video</a>
+    <a href="#training">Training</a>
+    <a href="#" onclick="openQuoteModal();return false;" class="nav-cta">Get a quote</a>
+  </div>
+</nav>
+
+<!-- CART -->
+<div id="cart" onclick="openQuoteModal()">
+  <div class="c-icon">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="2"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><line x1="3" y1="6" x2="21" y2="6"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+  </div>
+  <div>
+    <div class="c-label">Your estimate</div>
+    <div class="c-amount" id="cart-amt">$0 USD</div>
+  </div>
+  <button class="c-cta">Get a quote →</button>
+</div>
+
+<!-- HERO -->
+<section id="hero">
+  <div class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>FranConnect Creative Services</div>
+  <h1>Your brand.<br><em>Amplified.</em></h1>
+  <p>From a stunning platform redesign to training your whole team — we build the experiences your franchise deserves. Pick what you need, see the price instantly.</p>
+  <div class="hero-cards">
+    <a href="#platform" class="hc">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+      <div class="hc-title">Level up your platform</div>
+      <div class="hc-desc">Make FranConnect look and feel like your brand from day one.</div>
+      <div class="hc-link">Explore <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+    <a href="#video" class="hc">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+      <div class="hc-title">Lights, camera, franchise</div>
+      <div class="hc-desc">From quick edits to full productions — video that moves people.</div>
+      <div class="hc-link">Explore <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+    <a href="#training" class="hc">
+      <div class="hc-icon"><svg viewBox="0 0 24 24"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+      <div class="hc-title">Train smarter, not harder</div>
+      <div class="hc-desc">Interactive courses your team will actually want to finish.</div>
+      <div class="hc-link">Build a course <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg></div>
+    </a>
+  </div>
+</section>
+
+<!-- PLATFORM -->
+<section id="platform" class="section">
+<div class="sec-wrap">
+  <div class="sec-eye">Platform Design</div>
+  <h2 class="sec-title">Your brand lives here.<br>Let's make it unforgettable.</h2>
+  <p class="sec-sub">Your FranConnect platform is the first thing your franchisees see every single day. Make it count.</p>
+
+  <div class="plat-hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Platform%20Design.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="plat-grid">
+    <div class="pc" id="pc-skin" onclick="toggleP('skin',300)">
+      <div class="pc-media">
+        <img src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/IMG_Cover_Skinning.png" alt="Skinning" loading="lazy">
+        <div class="pc-play" onclick="openVid(event,'https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Platform%20Design_Platform%20Skinning.mp4')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-name">Platform Skinning</div>
+        <div class="pc-desc">Colors, fonts, logos — your brand baked into every corner of FranConnect.</div>
+        <div class="pc-price">$300 <span>one-time</span></div>
+        <button class="pc-btn" id="pb-skin">Add to estimate</button>
+      </div>
+    </div>
+    <div class="pc" id="pc-dash" onclick="toggleP('dash',1200)">
+      <div class="pc-media">
+        <img src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/IMG_Cover_Dashboard.png" alt="Dashboard" loading="lazy">
+        <div class="pc-play" onclick="openVid(event,'https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Platform%20Design_Dashboard%20Design.mp4')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-name">Dashboard Design</div>
+        <div class="pc-desc">A custom dashboard that puts the right info front and center for your franchisees.</div>
+        <div class="pc-price">$1,200 <span>per dashboard</span></div>
+        <button class="pc-btn" id="pb-dash">Add to estimate</button>
+      </div>
+    </div>
+    <div class="pc" id="pc-hub" onclick="toggleP('hub',3750)">
+      <div class="pc-media">
+        <img src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/IMG_Cover_Hub.png" alt="Hub" loading="lazy">
+        <div class="pc-play" onclick="openVid(event,'https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Platform%20Design_Hub%20Design.mp4')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-name">Hub Design</div>
+        <div class="pc-desc">A beautiful content hub — categories, top stories, and all your resources in one place.</div>
+        <div class="pc-price">$3,750 <span>full package</span></div>
+        <button class="pc-btn" id="pb-hub">Add to estimate</button>
+      </div>
+    </div>
+    <div class="pc" id="pc-tmpl" onclick="toggleP('tmpl',1700)">
+      <div class="pc-media">
+        <img src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/IMG_Training%20Modules_Cover_ACTIV%20%26%20eLearning%20Training.png" alt="Templates" loading="lazy">
+        <div class="pc-play" onclick="openVid(event,'https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Platform%20Design_Training%20Templates.mp4')">
+          <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+        </div>
+      </div>
+      <div class="pc-body">
+        <div class="pc-name">Branded Templates</div>
+        <div class="pc-desc">ACTIV platform template + 3 eLearning training styles ready to use across all your modules — all perfectly on-brand.</div>
+        <div class="pc-price">$1,700 <span>package</span></div>
+        <button class="pc-btn" id="pb-tmpl">Add to estimate</button>
+      </div>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- VIDEO -->
+<section id="video" class="section" style="background:#0c1922;">
+<div class="sec-wrap">
+  <div class="sec-eye" style="color:var(--orange)">Video Production</div>
+  <h2 class="sec-title" style="color:white">Lights, camera,<br><span style="color:var(--orange)">franchise.</span></h2>
+  <p class="sec-sub" style="color:rgba(255,255,255,.55)">Got footage? Need footage? Either way — from a quick reformat to a full motion graphic.</p>
+
+  <div class="vid-hero">
+    <video autoplay muted loop playsinline>
+      <source src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Video%20Production.mp4" type="video/mp4">
+    </video>
+  </div>
+
+  <div class="vid-grid">
+    <!-- EDITING -->
+    <div class="vc" style="display:flex;flex-direction:column;">
+      <div class="vc-top" style="border-bottom:1px solid rgba(255,255,255,.07);">
+        <div class="vc-icon-wrap" style="width:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);padding:20px;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 4h-5L7 7H4a2 2 0 00-2 2v9a2 2 0 002 2h16a2 2 0 002-2V9a2 2 0 00-2-2h-3l-2.5-3z"/><circle cx="12" cy="13" r="3"/></svg>
+        </div>
+        <div class="vc-info">
+          <div class="vc-name">Video Editing</div>
+          <div class="vc-desc">Reformat, trim, add animated text, highlight sections, crop. You film it — we make it shine.</div>
+        </div>
+      </div>
+      <div class="vc-ctrl" style="flex:1;display:flex;flex-direction:column;">
+        <div class="vc-lbl">How long is your video?</div>
+        <input type="range" class="pslider" id="eslider" min="0" max="4" step="1" value="0" oninput="updEdit(this)">
+        <div class="sticks"><span>Format only</span><span>&lt;5 min</span><span>5–15 min</span><span>15–30 min</span><span>30–45 min</span></div>
+        <div class="vprice" id="eprice">$300 <sub>/ video</sub></div>
+        <div style="margin-top:12px;">
+          <div class="vc-lbl">How many videos?</div>
+          <div class="qty-row">
+            <button class="qbtn" onclick="chgQty(-1)">−</button>
+            <span class="qval" id="eqty">1</span>
+            <button class="qbtn" onclick="chgQty(1)">+</button>
+          </div>
+        </div>
+        <div style="flex:1;"></div>
+        <button class="add-btn" id="ebtn" onclick="addEdit()">Add to estimate — <span id="etotal">$300</span></button>
+      </div>
+    </div>
+    <!-- PRODUCTION -->
+    <div class="vc" style="display:flex;flex-direction:column;">
+      <div class="vc-top" style="border-bottom:1px solid rgba(255,255,255,.07);">
+        <div class="vc-icon-wrap" style="width:80px;flex-shrink:0;display:flex;align-items:center;justify-content:center;background:rgba(255,255,255,.05);padding:20px;">
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2" ry="2"/></svg>
+        </div>
+        <div class="vc-info">
+          <div class="vc-name">Video Production</div>
+          <div class="vc-desc">Screencasts, promos, motion graphics — built from scratch. We write, animate, deliver.</div>
+        </div>
+      </div>
+      <div class="vc-ctrl" style="flex:1;display:flex;flex-direction:column;">
+        <div class="vc-lbl">What type of video?</div>
+        <div class="ptype-row">
+          <button class="ptb" id="ptb-sc" onclick="setPT('sc',this)">Screencast</button>
+          <button class="ptb" id="ptb-promo" onclick="setPT('promo',this)">Promotional</button>
+          <button class="ptb" id="ptb-mg" onclick="setPT('mg',this)">Motion Graphic</button>
+        </div>
+        <div id="pdur-wrap" style="display:none;">
+          <div class="vc-lbl" id="pdur-lbl">Duration</div>
+          <input type="range" class="pslider" id="pslider" min="0" max="60" step="1" value="0" oninput="updProd(this)">
+          <div class="sticks"><span>0</span><span id="pmaxlbl">60</span></div>
+        </div>
+        <div class="vprice" id="pprice" style="margin-top:10px;font-size:14px;color:rgba(255,255,255,.4);">Select a type above</div>
+        <div class="vo-opts">
+          <label class="vo-opt"><input type="checkbox" id="pscript" onchange="updProd(document.getElementById('pslider'))"> + Script Writing <span class="vo-opt-price">$600</span></label>
+          <label class="vo-opt"><input type="checkbox" id="pvo" onchange="updProd(document.getElementById('pslider'))"> + AI Voice-over <span class="vo-opt-price">$700</span></label>
+        </div>
+        <div style="flex:1;"></div>
+        <button class="add-btn" id="pbtn" onclick="addProd()">Add to estimate — <span id="ptotal">$0</span></button>
+      </div>
+    </div>
+  </div>
+</div>
+</section>
+
+<!-- TRAINING -->
+<section id="training" class="section">
+<div class="sec-wrap">
+  <div class="sec-eye">Training Modules</div>
+  <h2 class="sec-title">Your team.<br>Better trained. Always.</h2>
+  <p class="sec-sub">Interactive courses your team will actually complete — on-brand and ready to deploy in FranConnect.</p>
+
+  <div class="wiz-bar" id="wizbar">
+    <div class="ws act" id="ws0"><div class="ws-dot">1</div><div class="ws-lbl">Topic</div></div>
+    <div class="ws" id="ws1"><div class="ws-dot">2</div><div class="ws-lbl">Length</div></div>
+    <div class="ws" id="ws2"><div class="ws-dot">3</div><div class="ws-lbl">Style</div></div>
+    <div class="ws" id="ws3"><div class="ws-dot">4</div><div class="ws-lbl">Add-ons</div></div>
+    <div class="ws" id="ws4"><div class="ws-dot">5</div><div class="ws-lbl">Extras</div></div>
+    <div class="ws" id="ws5"><div class="ws-dot">✓</div><div class="ws-lbl">Summary</div></div>
+  </div>
+
+  <!-- Step 0: Topic -->
+  <div class="wstep act" id="wstep0">
+    <div class="sq">What does your team need to learn?</div>
+    <div class="sh">Pick the topic — we'll build the rest around it.</div>
+    <div class="tt-row">
+      <div class="tt" onclick="selTopic('onboarding',this)">
+        <div class="tt-icon"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+        <div class="tt-name">Onboarding</div>
+        <div class="tt-tag">Get new hires up to speed, fast</div>
+      </div>
+      <div class="tt" onclick="selTopic('customer',this)">
+        <div class="tt-icon"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+        <div class="tt-name">Customer Service</div>
+        <div class="tt-tag">Turn every interaction into a 5-star experience</div>
+      </div>
+      <div class="tt" onclick="selTopic('recipe',this)">
+        <div class="tt-icon"><svg viewBox="0 0 24 24"><path d="M3 2v7c0 1.1.9 2 2 2h4a2 2 0 002-2V2M7 2v20M21 15V2a5 5 0 00-5 5v6c0 1.1.9 2 2 2h3zm0 0v7"/></svg></div>
+        <div class="tt-name">Recipes & Products</div>
+        <div class="tt-tag">Nail consistency across every location</div>
+      </div>
+      <div class="tt" onclick="selTopic('system',this)">
+        <div class="tt-icon"><svg viewBox="0 0 24 24"><rect x="2" y="3" width="20" height="14" rx="2"/><path d="M8 21h8M12 17v4"/></svg></div>
+        <div class="tt-name">System Training</div>
+        <div class="tt-tag">Master your POS, software & tools</div>
+      </div>
+      <div class="tt" onclick="selTopic('compliance',this)">
+        <div class="tt-icon"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+        <div class="tt-name">Compliance</div>
+        <div class="tt-tag">Keep your whole network audit-ready</div>
+      </div>
+    </div>
+    <div class="wiz-nav"><button class="wbtn-next" id="wn0" onclick="wNext(1)" disabled>Next: Choose length →</button></div>
+  </div>
+
+  <!-- Step 1: Length -->
+  <div class="wstep" id="wstep1">
+    <div class="sq">How deep should we go?</div>
+    <div class="sh">Think about how much your team needs to absorb — shorter isn't always easier!</div>
+    <div class="ml-row">
+      <div class="ml" onclick="selLen('e',this)">
+        <span class="ml-emoji">⚡</span>
+        <div class="ml-name">Quick & Focused</div>
+        <div class="ml-time">~5 minutes</div>
+        <div class="ml-desc">One topic, laser-focused. Perfect for bite-sized skills your team can apply immediately.</div>
+      </div>
+      <div class="ml" onclick="selLen('s',this)">
+        <span class="ml-emoji">🎯</span>
+        <div class="ml-name">The Full Picture</div>
+        <div class="ml-time">~15 minutes</div>
+        <div class="ml-desc">Cover 2–3 related topics in one solid session. The sweet spot for most training needs.</div>
+      </div>
+      <div class="ml" onclick="selLen('a',this)">
+        <span class="ml-emoji">🏆</span>
+        <div class="ml-name">Deep Dive</div>
+        <div class="ml-time">~30 minutes</div>
+        <div class="ml-desc">Multiple topics, rich interactions, deep knowledge. For when you really need it to stick.</div>
+      </div>
+    </div>
+    <div class="wiz-nav">
+      <button class="wbtn-back" onclick="wBack(0)">← Back</button>
+      <button class="wbtn-next" id="wn1" onclick="wNext(2)" disabled>Next: Pick your style →</button>
+    </div>
+  </div>
+
+  <!-- Step 2: Style -->
+  <div class="wstep" id="wstep2">
+    <div class="sq">How should it look and feel?</div>
+    <div class="sh" id="style-hint">Three ways to bring your content to life.</div>
+    <div id="recipe-note-area"></div>
+    <div class="vs-row" id="vstyle-grid"></div>
+    <div class="wiz-nav">
+      <button class="wbtn-back" onclick="wBack(1)">← Back</button>
+      <button class="wbtn-next" id="wn2" onclick="wNext(3)" disabled>Next: Power it up →</button>
+    </div>
+  </div>
+
+  <!-- Step 3: Add-ons -->
+  <div class="wstep" id="wstep3">
+    <div class="sq">Want to make it even more powerful?</div>
+    <div class="sh" id="ao-hint">These are optional — but they transform a good course into a great one.</div>
+    <div id="ao-grid"></div>
+    <div class="wiz-nav">
+      <button class="wbtn-back" onclick="wBack(2)">← Back</button>
+      <button class="wbtn-next" onclick="wNext(4)">Next: Final touches →</button>
+    </div>
+  </div>
+
+  <!-- Step 4: Extras -->
+  <div class="wstep" id="wstep4">
+    <div class="sq">A few finishing touches?</div>
+    <div class="sh">All optional — but they make your course feel truly yours.</div>
+    <div class="ex-row">
+      <div class="ex" id="ex-char" onclick="togEx('char',this)">
+        <div class="ex-icon"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg></div>
+        <div class="ex-name">Custom Character</div>
+        <div class="ex-desc">A branded guide that walks learners through the course — your mascot, your vibe.</div>
+        <div class="ex-price">+ $1,500</div>
+      </div>
+      <div class="ex" id="ex-vo" onclick="togEx('vo',this)">
+        <div class="ex-icon"><svg viewBox="0 0 24 24"><path d="M12 1a3 3 0 00-3 3v8a3 3 0 006 0V4a3 3 0 00-3-3z"/><path d="M19 10v2a7 7 0 01-14 0v-2M12 19v4M8 23h8"/></svg></div>
+        <div class="ex-name">AI Voice-over</div>
+        <div class="ex-desc">A natural-sounding narrator on every slide. Great for accessibility and engagement.</div>
+        <div class="ex-price">+ $700</div>
+      </div>
+      <div class="ex" id="ex-alttext" onclick="togEx('alttext',this)">
+        <div class="ex-icon"><svg viewBox="0 0 24 24"><path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7z"/><circle cx="12" cy="12" r="3"/><line x1="3" y1="3" x2="21" y2="21"/></svg></div>
+        <div class="ex-name">Alternative Text</div>
+        <div class="ex-desc">Screen-reader descriptions for every image and element — full accessibility compliance.</div>
+        <div class="ex-price">+ $400</div>
+      </div>
+    </div>
+    <div class="wiz-nav">
+      <button class="wbtn-back" onclick="wBack(3)">← Back</button>
+      <button class="wbtn-next" onclick="buildSummary()">See my estimate →</button>
+    </div>
+  </div>
+
+  <!-- Step 5: Summary -->
+  <div class="wstep" id="wstep5">
+    <div class="train-sum">
+    <div style="display:flex;align-items:center;justify-content:center;gap:10px;margin-bottom:8px;">
+      <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.9)" stroke-width="1.8"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+      <h3 style="margin:0;">Here's your training estimate!</h3>
+    </div>
+      <p>Based on your selections — no hidden fees, no surprises.</p>
+      <div class="sum-lines" id="sum-lines"></div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);">Estimated total</div>
+      <div class="sum-total" id="sum-total">$0</div>
+      <div class="sum-note" style="display:flex;align-items:center;justify-content:center;gap:6px;">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8"><polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+        All prices in USD — discounts may apply when you request your quote
+      </div>
+      <button class="sum-cta" onclick="addTrain()">Get a quote →</button>
+    </div>
+    <div class="wiz-nav" style="margin-top:20px;">
+      <button class="wbtn-back" onclick="wBack(4)">← Adjust selections</button>
+      <button class="wbtn-back" onclick="resetWiz()" style="border-color:var(--orange);color:var(--orange);">Build another course</button>
+    </div>
+  </div>
+
+  <!-- LIVE DEMO — after wizard -->
+  <div class="demo-wrap" style="margin-top:64px;">
+    <div class="demo-header">
+      <div>
+        <div class="demo-badge">
+          <svg viewBox="0 0 24 24"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+          Live Interactive Demo
+        </div>
+        <div class="demo-title" style="display:flex;align-items:center;gap:10px;">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="var(--blue)" stroke-width="1.8"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8"/></svg>
+          See what a real course looks like
+        </div>
+        <div class="demo-desc">This is a real interactive training module built by FranConnect Creative Services. Click, explore, interact — this is exactly what your team would experience.</div>
+        <div class="demo-cta-hint">
+          <svg viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+          Fully interactive — no install, no login needed
+        </div>
+      </div>
+    </div>
+    <div class="demo-frame-wrap">
+      <iframe
+        id="demo-frame"
+        class="demo-frame"
+        src="https://fccreativeservices.github.io/Creative-Studio/story.html"
+        allowfullscreen
+        loading="lazy"
+        title="Build a Salad — Interactive Training Demo">
+      </iframe>
+    </div>
+  </div>
+
+</div>
+</section>
+
+<!-- CSM -->
+<div id="csm">
+  <h2>Ready to make it real?</h2>
+  <p>Your estimate is just the starting point. Send us your selections and we'll put together a personalized quote — no obligation, no pressure.</p>
+  <div class="csm-btns">
+    <button class="csm-p" onclick="openQuoteModal()">See my full estimate</button>
+  </div>
+</div>
+
+<!-- MODAL: TERMS & CONDITIONS -->
+<div id="tc-overlay" style="position:fixed;inset:0;z-index:700;background:rgba(0,0,0,.75);backdrop-filter:blur(10px);display:none;align-items:flex-start;justify-content:center;padding:20px;overflow-y:auto;" onclick="closeTCIfBg(event)">
+  <div style="background:white;border-radius:20px;max-width:640px;width:100%;margin:auto;box-shadow:0 24px 80px rgba(0,0,0,.3);position:relative;overflow:hidden;">
+    <button onclick="document.getElementById('tc-overlay').style.display='none'" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:var(--off);border:none;color:var(--dark);font-size:16px;cursor:pointer;z-index:1;">✕</button>
+    <div style="background:linear-gradient(135deg,var(--blue),var(--blue2));padding:28px 32px;border-radius:20px 20px 0 0;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;">FranConnect Creative Services</div>
+      <div style="font-size:22px;font-weight:800;color:white;">Terms &amp; Conditions</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.55);margin-top:4px;">Please read before requesting a quote</div>
+    </div>
+    <div style="padding:28px 32px;font-size:13px;color:var(--text);line-height:1.75;">
+      <div style="margin-bottom:22px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue2);margin-bottom:8px;">Platform Design</div>
+        <div style="margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Platform Skinning</strong><br>
+          One skin per platform. Includes color palette updates, logo placement, and background customization within FranConnect's platform. Does not include structural layout changes.
+        </div>
+        <div style="margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Dashboard Design</strong><br>
+          One dashboard per platform. Includes tile widget design — client must provide layout, content, and links. Header and custom widgets available upon request. One round of revisions included.
+        </div>
+        <div style="margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Hub Design</strong><br>
+          Includes the full Hub Package: up to 10 Hub Categories, 10 Top Stories, and a Hub Update (image sets and text page sets). Hub Categories include category naming, icons, and content grouping. Top Stories include featured article cards with images and links. Hub Updates include image and text page refreshes. Does not include individual page design, custom page layouts, or content creation inside the Hub.
+        </div>
+        <div style="padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Branded Templates</strong><br>
+          Includes one ACTIV template and 3 eLearning training styles, built within the client's FranConnect platform. No additional template types included.
+        </div>
+      </div>
+      <div style="margin-bottom:22px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue2);margin-bottom:8px;">Video Production</div>
+        <div style="margin-bottom:10px;padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Video Editing</strong><br>
+          Pricing depends on the client's original video file and its duration. Each video is quoted individually — a different duration will be charged separately and may affect the final quote.
+        </div>
+        <div style="padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Video Production</strong><br>
+          Pricing depends on duration and type. The client must provide the initial script or concept with references. Duration directly affects price and production timeline.
+        </div>
+      </div>
+      <div style="margin-bottom:22px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--blue2);margin-bottom:8px;">Training Modules</div>
+        <div style="padding-left:12px;border-left:2px solid var(--border);">
+          <strong style="color:var(--blue);">Content Responsibility</strong><br>
+          FranConnect Creative Services is not a content creator. All training content must be provided by the client. If the final content exceeds what was originally quoted, pricing may be adjusted accordingly.
+        </div>
+      </div>
+      <div style="background:rgba(232,119,34,.07);border:1px solid rgba(232,119,34,.2);border-radius:var(--rad-sm);padding:14px 16px;">
+        <div style="font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--orange);margin-bottom:6px;">General</div>
+        <div style="color:var(--dark);">All quotes include <strong>one round of revisions</strong>. Additional revision rounds are subject to separate pricing. Final quotes are confirmed by your FranConnect account representative and may include adjustments based on final scope.</div>
+      </div>
+    </div>
+    <div style="padding:0 32px 28px;">
+      <button onclick="document.getElementById('tc-overlay').style.display='none'" style="width:100%;padding:12px;border-radius:40px;background:var(--blue);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;">Got it →</button>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="fl">FranConnect Creative Services © 2025</div>
+</footer>
+
+<!-- MODAL: VIDEO -->
+<div id="moverlay" onclick="closeMod(event)">
+  <div class="mbox">
+    <button class="mclose" onclick="closeModBtn()">✕</button>
+    <video class="mvid" id="mvid" controls></video>
+  </div>
+</div>
+
+<!-- MODAL: QUOTE ESTIMATE -->
+<div id="quote-overlay" style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;" onclick="closeQuoteIfBg(event)">
+  <div style="background:white;border-radius:20px;max-width:560px;width:100%;max-height:90vh;overflow-y:auto;box-shadow:0 24px 80px rgba(0,0,0,.3);position:relative;">
+    <button onclick="document.getElementById('quote-overlay').style.display='none'" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:rgba(255,255,255,.2);border:none;color:white;font-size:16px;cursor:pointer;z-index:1;">✕</button>
+    <div style="background:linear-gradient(135deg,var(--blue),var(--blue2));padding:28px 32px;border-radius:20px 20px 0 0;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;">Your Estimate Summary</div>
+      <div style="font-size:36px;font-weight:800;color:white;" id="qm-total">$0 USD</div>
+      <div style="font-size:12px;color:rgba(255,255,255,.5);margin-top:4px;">All prices in USD · Keep exploring or send us your selections</div>
+      <div style="margin-top:8px;font-size:11px;color:rgba(255,255,255,.5);">By sending a quote request you agree to our <span onclick="openTCModal()" style="color:rgba(255,255,255,.85);text-decoration:underline;cursor:pointer;font-weight:600;">Terms &amp; Conditions</span></div>
+    </div>
+    <div style="padding:24px 32px;" id="qm-body"></div>
+    <div style="padding:0 32px 28px;display:flex;gap:10px;">
+      <button onclick="document.getElementById('quote-overlay').style.display='none'" style="flex:1;padding:14px;border-radius:40px;background:transparent;border:2px solid var(--border);color:var(--dark);font-size:14px;font-weight:600;cursor:pointer;font-family:'Poppins',sans-serif;">Keep exploring</button>
+      <button onclick="document.getElementById('quote-overlay').style.display='none';openGetQuoteModal();" style="flex:1;padding:14px;border-radius:40px;background:var(--orange);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;">Get a quote →</button>
+    </div>
+  </div>
+</div>
+
+<!-- MODAL: GET A QUOTE (sends email) -->
+<div id="getquote-overlay" style="position:fixed;inset:0;z-index:600;background:rgba(0,0,0,.7);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;" onclick="closeGetQuoteIfBg(event)">
+  <div style="background:white;border-radius:20px;max-width:480px;width:100%;box-shadow:0 24px 80px rgba(0,0,0,.3);position:relative;overflow:hidden;">
+    <button onclick="document.getElementById('getquote-overlay').style.display='none'" style="position:absolute;top:16px;right:16px;width:32px;height:32px;border-radius:50%;background:rgba(0,0,0,.08);border:none;color:var(--dark);font-size:16px;cursor:pointer;z-index:1;">✕</button>
+    <div style="background:linear-gradient(135deg,var(--blue),var(--blue2));padding:28px 32px;">
+      <div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:rgba(255,255,255,.6);margin-bottom:6px;">Request a quote</div>
+      <div style="font-size:22px;font-weight:800;color:white;line-height:1.2;">Let's build something great</div>
+      <div style="font-size:13px;color:rgba(255,255,255,.65);margin-top:6px;">We'll review your selections and get back to you within 1 business day.</div>
+    </div>
+    <div style="padding:24px 32px;">
+      <div style="margin-bottom:14px;">
+        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Your name</label>
+        <input id="gq-name" type="text" placeholder="First Last" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+      </div>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Work email</label>
+        <input id="gq-email" type="email" placeholder="you@brand.com" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+      </div>
+      <div style="margin-bottom:14px;">
+        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Company / Brand</label>
+        <input id="gq-company" type="text" placeholder="Your franchise name" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+      </div>
+      <div style="margin-bottom:20px;">
+        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Anything to add? (optional)</label>
+        <textarea id="gq-msg" placeholder="Timeline, specific needs, questions..." rows="3" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;resize:none;"></textarea>
+      </div>
+      <div style="background:var(--off);border-radius:var(--rad-sm);padding:12px 14px;margin-bottom:16px;font-size:12px;color:var(--dark);">
+        <strong style="color:var(--blue);">Your estimate:</strong> <span id="gq-est-inline">$0 USD</span>
+      </div>
+      <button onclick="submitGetQuote()" id="gq-submit-btn" style="width:100%;padding:14px;border-radius:40px;background:var(--orange);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;">Send quote request →</button>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ── STATE ── */
+var E = {
+  platform: { skin:false, dash:false, hub:false, tmpl:false },
+  editPrice:300, editQty:1, editAdded:false,
+  prodPrice:0, prodAdded:false,
+  trainPrice:0
+};
+
+var W = { topic:null, len:null, style:null, addons:{}, extras:{char:false,vo:false,alttext:false} };
+
+/* ── PRICING ── */
+var BP = {
+  activ:{ e:2250, s:3000, a:3750 },
+  rise:{ e:2650, s:3375, a:4125 },
+  sl:{ e:3750, s:5250, a:7500 }
+};
+var AT = {
+  cs:[1200,2280,3240,4080,4800,5400,5880,6240,6480,6600],
+  rb:[1800,3420,4860,6120,7200,8100,8820,9360,9720,9900],
+  pi:[4500,8550,12150,15300,18000,20250,22050,23400,24300,24750],
+  ss:[3000,5700,8100,10200,12000,13500,14700,15600,16200,16500]
+};
+function tier(type,qty){
+  var t=AT[type];if(!t||qty<=0)return 0;
+  if(qty<=t.length)return t[qty-1];
+  var extra={cs:450,rb:750,pi:1200,ss:900};
+  return t[t.length-1]+(qty-t.length)*(extra[type]||450);
+}
+
+/* ── CART ── */
+function total(){
+  var t=0;var p=E.platform;
+  if(p.skin)t+=300;if(p.dash)t+=1200;if(p.hub)t+=3750;
+  if(p.tmpl)t+=1700;
+  if(E.editAdded)t+=E.editPrice*E.editQty;
+  if(E.prodAdded)t+=E.prodPrice;
+  t+=E.trainPrice;
+  return t;
+}
+function updCart(){
+  var t=total();
+  document.getElementById('cart-amt').textContent='$'+t.toLocaleString()+' USD';
+  var c=document.getElementById('cart');
+  c.classList.toggle('active',t>0);
+}
+
+/* ── PLATFORM ── */
+function toggleP(key,price){
+  var p=E.platform;
+  p[key]=!p[key];
+  var card=document.getElementById('pc-'+key);
+  var btn=document.getElementById('pb-'+key);
+  if(p[key]){card.classList.add('sel');btn.textContent='✓ Added!';}
+  else{card.classList.remove('sel');btn.textContent='Add to estimate';}
+  updCart();
+}
+function toggleTmplAddon(key,price,el){}
+
+/* ── VIDEO EDITING ── */
+var EPRICES=[300,900,1200,2400,3600];
+var ELABELS=['Format only','Under 5 min','5–15 min','15–30 min','30–45 min'];
+function updEdit(s){
+  var v=parseInt(s.value);
+  var pct=(v/4)*100;s.style.setProperty('--pct',pct+'%');
+  E.editPrice=EPRICES[v];
+  document.getElementById('eprice').innerHTML='$'+EPRICES[v].toLocaleString()+'<sub> / video — '+ELABELS[v]+'</sub>';
+  document.getElementById('etotal').textContent='$'+(EPRICES[v]*E.editQty).toLocaleString();
+  updCart();
+}
+function chgQty(d){
+  E.editQty=Math.max(1,E.editQty+d);
+  document.getElementById('eqty').textContent=E.editQty;
+  document.getElementById('etotal').textContent='$'+(E.editPrice*E.editQty).toLocaleString();
+  updCart();
+}
+function addEdit(){
+  E.editAdded=true;
+  var b=document.getElementById('ebtn');
+  b.style.background='#059669';
+  b.innerHTML='✓ Added! <span id="etotal">$'+(E.editPrice*E.editQty).toLocaleString()+'</span>';
+  updCart();
+  setTimeout(function(){
+    b.style.background='';
+    b.innerHTML='Update estimate — <span id="etotal">$'+(E.editPrice*E.editQty).toLocaleString()+'</span>';
+  },2000);
+}
+
+/* ── VIDEO PRODUCTION ── */
+var PT=null;
+var PMAXES={sc:60,promo:10,mg:60};
+var PUNITS={sc:'min',promo:'min',mg:'sec'};
+function setPT(type,btn){
+  PT=type;
+  document.querySelectorAll('.ptb').forEach(function(b){b.classList.remove('on');});
+  btn.classList.add('on');
+  var s=document.getElementById('pslider');
+  s.max=PMAXES[type];s.step=type==='mg'?5:1;s.value=0;
+  s.style.setProperty('--pct','0%');
+  document.getElementById('pdur-lbl').textContent='Duration in '+PUNITS[type]+'s';
+  document.getElementById('pmaxlbl').textContent=PMAXES[type]+' '+PUNITS[type];
+  document.getElementById('pdur-wrap').style.display='block';
+  updProd(s);
+}
+function updProd(s){
+  if(!PT)return;
+  var dur=parseFloat(s.value)||0;
+  var pct=(dur/PMAXES[PT])*100;s.style.setProperty('--pct',pct+'%');
+  var base=0;
+  if(PT==='sc')base=Math.ceil(dur/5)*1800;
+  else if(PT==='promo')base=Math.ceil(dur)*2700;
+  else if(PT==='mg'){if(dur<=5)base=900;else if(dur<=15)base=1500;else if(dur<=30)base=1800;else base=1800+Math.ceil(dur-30)*60;}
+  var sc=document.getElementById('pscript').checked?600:0;
+  var vo=document.getElementById('pvo').checked?700:0;
+  E.prodPrice=base+sc+vo;
+  var pp=document.getElementById('pprice');
+  if(E.prodPrice>0){pp.style.fontSize='24px';pp.style.color='white';pp.innerHTML='$'+E.prodPrice.toLocaleString()+'<sub> ('+dur+' '+PUNITS[PT]+')</sub>';}
+  else{pp.style.fontSize='14px';pp.style.color='rgba(255,255,255,.4)';pp.textContent='Set duration above';}
+  document.getElementById('ptotal').textContent='$'+E.prodPrice.toLocaleString();
+  updCart();
+}
+function addProd(){
+  if(E.prodPrice<=0){
+    document.getElementById('pprice').textContent='Select a type and set a duration first';
+    return;
+  }
+  E.prodAdded=true;
+  var b=document.getElementById('pbtn');
+  b.style.background='#059669';
+  b.innerHTML='&#10003; Added! <span id="ptotal">$'+E.prodPrice.toLocaleString()+'</span>';
+  updCart();
+  setTimeout(function(){
+    b.style.background='';
+    b.innerHTML='Update estimate — <span id="ptotal">$'+E.prodPrice.toLocaleString()+'</span>';
+  },2000);
+}
+
+/* ── WIZARD ── */
+function selTopic(t,el){
+  W.topic=t;
+  document.querySelectorAll('.tt').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  document.getElementById('wn0').disabled=false;
+}
+function selLen(l,el){
+  W.len=l;
+  document.querySelectorAll('.ml').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  document.getElementById('wn1').disabled=false;
+}
+
+/* Asset map */
+var BASE='https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/';
+var ASSETS={
+  onboarding:{
+    activ:{c:'IMG_Training%20Modules_Cover_Onboarding%20Training_ACTIV.png',v:'VID_Training%20Modules_Onboarding%20Training_ACTIV.mp4'},
+    rise:{c:'IMG_Training%20Modules_Cover_Onboarding%20Training_RISE.png',v:'VID_Training%20Modules_Onboarding%20Training_RISE.mp4'},
+    sl:{c:'IMG_Training%20Modules_Cover_Onboarding%20Training_ACTIV.png',v:null}
+  },
+  customer:{
+    activ:{c:'IMG_Training%20Modules_Cover_Customer%20Service%20Training_ACTIV.png',v:'VID_Training%20Modules_Customer%20Experience_ACTIV.mp4'},
+    rise:{c:'IMG_Training%20Modules_Cover_Customer%20Service%20Training_ACTIV.png',v:null},
+    sl:{c:'IMG_Training%20Modules_Cover_Customer%20Service%20Training_ACTIV.png',v:null}
+  },
+  compliance:{
+    activ:{c:'IMG_Training%20Modules_Cover_Compliance%20Training_ACTIV.png',v:'VID_Training%20Modules_Compliance_ACTIV.mp4'},
+    rise:{c:'IMG_Training%20Modules_Cover_Compliance%20Training_ACTIV.png',v:null},
+    sl:{c:'IMG_Training%20Modules_Cover_Compliance%20Training_ACTIV.png',v:null}
+  },
+  system:{
+    activ:{c:'IMG_Training%20Modules_Cover_System%20Training_ACTIV.png',v:'VID_Training%20Modules_System%20Training_ACTIV.mp4'},
+    rise:{c:'IMG_Training%20Modules_Cover_System%20Training_RISE.png',v:'VID_Training%20Modules_System%20Training_RISE.mp4'},
+    sl:{c:'IMG_Training%20Modules_Cover_System%20Training_SL.png',v:'VID_Training%20Modules_System%20Training_SL.mp4'}
+  },
+  recipe:{
+    activ:{c:'IMG_Training%20Modules_Cover_Recipes%20Training_ACTIV.png',v:'VID_Training%20Modules_Recipe%20Training_ACTIV.mp4'},
+    rise:{c:'IMG_Training%20Modules_Cover_Recipes%20Training_RISE.png',v:'VID_Training%20Modules_Recipe%20Training_RISE.mp4'},
+    'sl-rb':{c:'IMG_Training%20Modules_Cover_Recipes%20Training_SL%20Recipe%20Builder.png',v:'VID_Training%20Modules_Recipe%20Training_SL%20Recipe%20Builder.mp4'},
+    'sl-proc':{c:'IMG_Training%20Modules_Cover_Recipes%20Training_SL%20Procedure.png',v:'VID_Training%20Modules_Recipe%20Training_SL%20Procedure.mp4'},
+    'sl-gami':{c:'IMG_Training%20Modules_Cover_Recipes%20Training_SL%20Gamified.png',v:'VID_Training%20Modules_Recipe%20Training_SL%20Gamified.mp4'}
+  }
+};
+
+var STYLE_DEFS={
+  default:[
+    {key:'activ',name:'Slide-Based Training (ACTIV+eLearning)',desc:'Branded slides with animations, quizzes, and clean navigation. Simple, polished, effective.'},
+    {key:'rise',name:'Guided Course',desc:'Scroll-based, mobile-friendly. Feels like a website, works like a course.'},
+    {key:'sl',name:'Immersive Interactive',desc:'Full interactivity — branching scenarios, simulations, characters, gamification.'}
+  ],
+  recipe:[
+    {key:'activ',name:'Slide-Based (ACTIV+eLearning)',desc:'Clean slides showcasing your menu and product highlights.'},
+    {key:'rise',name:'Guided Course',desc:'A scrollable step-by-step guide through each recipe or product.'},
+    {key:'sl-rb',name:'Interactive Recipe',desc:'Learners build the recipe themselves — drag, click, assemble.',note:'Includes 1 Recipe Builder'},
+    {key:'sl-proc',name:'Step-by-Step Procedure',desc:'Animated steps from prep to plating — every detail covered.',note:'Includes 1 Procedure Interaction'},
+    {key:'sl-gami',name:'Gamified Experience',desc:'Points, badges, challenges — learning disguised as fun.',note:'Gamification included'}
+  ]
+};
+
+function buildStyles(){
+  var grid=document.getElementById('vstyle-grid');
+  var note=document.getElementById('recipe-note-area');
+  var hint=document.getElementById('style-hint');
+  grid.innerHTML='';note.innerHTML='';
+  W.style=null;document.getElementById('wn2').disabled=true;
+  var defs=W.topic==='recipe'?STYLE_DEFS.recipe:STYLE_DEFS.default;
+  if(W.topic==='recipe'){
+    note.innerHTML='<div class="recipe-note">🍕 For Recipes & Products we have 5 flavors — pick the one that matches how you want to showcase your products!</div>';
+    grid.className='vs-row recipe-grid';
+  } else {
+    grid.className='vs-row';
+  }
+  hint.textContent=W.topic==='recipe'?'Five ways to bring your recipes to life.':'Three ways to bring your content to life.';
+  defs.forEach(function(d){
+    var a=ASSETS[W.topic]&&ASSETS[W.topic][d.key];
+    var cov=a?BASE+a.c:'';
+    var vid=a&&a.v?BASE+a.v:null;
+    var tool=d.key.indexOf('sl')===0?'sl':d.key;
+    var lvl=W.len||'s';
+    if((d.key==='sl-rb'||d.key==='sl-proc'||d.key==='sl-gami')&&lvl==='a')lvl='s';
+    var price=(BP[tool]||BP.sl)[lvl]||0;
+    var playBtn=vid?'<div class="vsc-play" onclick="openVid(event,\''+vid+'\')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" stroke-width="1.5"/></svg></div>':'';
+    var noteHtml=d.note?'<div class="vsc-note">✦ '+d.note+'</div>':'';
+    grid.innerHTML+='<div class="vsc" data-style="'+d.key+'">'
+      +'<div class="vsc-media"><img src="'+cov+'" alt="'+d.name+'" loading="lazy">'+playBtn+'</div>'
+      +'<div class="vsc-body">'
+      +'<div class="vsc-name">'+d.name+'</div>'
+      +'<div class="vsc-desc">'+d.desc+'</div>'
+      +noteHtml
+      +'<div class="vsc-from">Starting at</div>'
+      +'<div class="vsc-price">$'+price.toLocaleString()+' USD</div>'
+      +'</div></div>';
+  });
+  // Event delegation for style cards - avoids inline JS escaping issues
+  grid.addEventListener('click', function(e){
+    var card = e.target.closest('.vsc');
+    if(!card) return;
+    var styleKey = card.getAttribute('data-style');
+    if(styleKey) selStyle(styleKey, card);
+  });
+}
+
+function selStyle(s,el){
+  W.style=s;
+  document.querySelectorAll('.vsc').forEach(function(c){c.classList.remove('sel');});
+  el.classList.add('sel');
+  document.getElementById('wn2').disabled=false;
+}
+
+/* Add-ons */
+var AO_DEFS={
+  onboarding:[{key:'cs',icon:'🎭',name:'Customer Experience Scenarios',desc:'Real-life role-play situations your new hires will actually face on day one.'}],
+  customer:[{key:'cs',icon:'🎭',name:'Customer Experience Scenarios',desc:'Practice tricky customer conversations before they happen for real.'}],
+  compliance:[
+    {key:'pi',icon:'🔧',name:'Procedure Interactions',desc:'Animated step-by-step walkthroughs — perfect for safety and operational procedures.'},
+    {key:'cs',icon:'🎭',name:'Customer Scenarios',desc:'Real-world scenarios to make compliance feel less like a checklist.'}
+  ],
+  system:[{key:'ss',icon:'💻',name:'System Simulators',desc:'A replica of your actual software where learners practice without breaking anything.'}],
+  recipe:[]
+};
+
+function buildAddons(){
+  var g=document.getElementById('ao-grid');
+  var hint=document.getElementById('ao-hint');
+  g.innerHTML='';W.addons={};
+  var s=W.style;
+  var isActiv=s==='activ';
+  if(isActiv){
+    g.innerHTML='<div class="activ-msg">'
+      +'<svg viewBox="0 0 24 24" style="width:40px;height:40px;stroke:var(--blue2);fill:none;stroke-width:1.5;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+      +'<p>Slide-Based Training (ACTIV+eLearning) is powerful on its own — it doesn\'t support interactive add-ons.<br>'
+      +'Want to explore more interactions? <span class="activ-go-back" onclick="wBack(2)">Go back and try another style.</span></p>'
+      +'</div>';
+    hint.textContent='Your selected style is ready to go!';return;
+  }
+  var defs=AO_DEFS[W.topic]||[];
+  if(s==='sl-rb')defs=[{key:'rb',name:'More Recipe Builders',desc:'Add more interactive recipes to this module.',included:'1 Recipe Builder',unit:'Recipe Builder',price:1800}];
+  else if(s==='sl-proc')defs=[{key:'pi',name:'More Procedure Steps',desc:'Add more step-by-step procedures.',included:'1 Procedure Interaction',unit:'Procedure',price:4500}];
+  else if(s==='sl-gami'||(s==='rise'&&W.topic==='recipe'))defs=[];
+  if(defs.length===0){
+    var topicLabel2={onboarding:'Onboarding',customer:'Customer Service',recipe:'Recipes & Products',system:'System Training',compliance:'Compliance'}[W.topic]||'This course';
+    var styleLabel2={activ:'Slide-Based Training (ACTIV+eLearning)',rise:'Guided Course',sl:'Immersive Interactive','sl-rb':'Interactive Recipe','sl-proc':'Step-by-Step Procedure','sl-gami':'Gamified Experience'}[W.style]||'Your selected style';
+    g.innerHTML='<div class="activ-msg">'
+      +'<svg viewBox="0 0 24 24" style="width:40px;height:40px;stroke:var(--blue2);fill:none;stroke-width:1.5;margin-bottom:12px;display:block;margin-left:auto;margin-right:auto;"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>'
+      +'<p>'+styleLabel2+' is powerful on its own — it doesn\'t have additional add-ons for this topic.<br>'
+      +'Want to explore more interactions? <span class="activ-go-back" onclick="wBack(2)">Go back and try another style.</span></p>'
+      +'</div>';
+    hint.textContent='All set — continue to the extras!';return;
+  }
+  hint.textContent='These are totally optional — but they make your course even more powerful.';
+  var isRise=s==='rise';
+  defs.forEach(function(d){
+    var basePr=d.price||(AT[d.key]?AT[d.key][0]:0);
+    var pr=isRise?basePr*0.5:basePr;
+    var included=d.included||null;
+    var unit=d.unit||d.name;
+    g.innerHTML+='<div class="ao-stepper-card" id="aosc-'+d.key+'">'
+      +'<div class="aosc-left">'
+      +'<div class="aosc-name">'+d.name+'</div>'
+      +'<div class="aosc-desc">'+d.desc+'</div>'
+      +'<div class="aosc-price-per">$'+pr.toLocaleString()+' / add-on</div>'
+      +'<div class="aosc-summary" id="aosum-'+d.key+'">'+(included?'<span class="aosc-inc-tag">1 Included</span>':'')+'</div>'
+      +'</div>'
+      +'<div class="aosc-right">'
+      +'<div class="aosc-stepper">'
+      +'<button class="aosc-btn" onclick="stepAO(\''+d.key+'\',-1,event)">−</button>'
+      +'<span class="aosc-val" id="aosv-'+d.key+'">0</span>'
+      +'<button class="aosc-btn aosc-plus" onclick="stepAO(\''+d.key+'\',1,event)">+</button>'
+      +'</div>'
+      +(included?'<div class="aosc-included">1 included</div>':'')
+      +'</div>'
+      +'</div>';
+  });
+}
+function stepAO(key,delta,e){
+  e.stopPropagation();
+  var isRise=W.style==='rise';var mult=isRise?0.5:1;
+  var cur=W.addons[key]||0;
+  var nxt=Math.max(0,cur+delta);
+  W.addons[key]=nxt;
+  document.getElementById('aosv-'+key).textContent=nxt;
+  var card=document.getElementById('aosc-'+key);
+  card.classList.toggle('aosc-active',nxt>0);
+  var pr=tier(key,nxt)*mult;
+  var sumEl=document.getElementById('aosum-'+key);
+  var hasIncluded=W.style==='sl-rb'||W.style==='sl-proc';
+  var inclN=hasIncluded?1:0;
+  var total=inclN+nxt;
+  var unitMap={rb:'Recipe Builder',pi:'Procedure',cs:'Scenario',ss:'Simulator'};
+  var unit=unitMap[key]||'Item';
+  var units=total!==1?unit+'s':unit;
+  if(nxt>0){
+    sumEl.innerHTML=(hasIncluded?'<span class="aosc-inc-tag">1 Included</span> + ':'')+'<span class="aosc-add-tag">'+nxt+' Add-on'+(nxt>1?'s':'')+'</span> = <strong>'+total+' '+units+' Total</strong>'+'<div class="aosc-add-cost">+$'+pr.toLocaleString()+' USD</div>';
+  } else {
+    sumEl.innerHTML=hasIncluded?'<span class="aosc-inc-tag">1 Included</span>':'';
+  }
+}
+
+function togEx(key,el){W.extras[key]=!W.extras[key];el.classList.toggle('sel');}
+
+/* Summary */
+function buildSummary(){
+  var topic=W.topic,len=W.len,style=W.style;
+  var tool=style&&style.indexOf('sl')===0?'sl':(style||'sl');
+  var lvl=len;
+  if((style==='sl-rb'||style==='sl-proc'||style==='sl-gami')&&len==='a')lvl='s';
+  var base=(BP[tool]||BP.sl)[lvl]||0;
+  var lines=[];
+  var lenLabel={e:'Quick & Focused',s:'The Full Picture',a:'Deep Dive'}[len]||'Standard';
+  var styleLabel={activ:'Slide-Based Training (ACTIV+eLearning)',rise:'Guided Course',sl:'Immersive Interactive','sl-rb':'Interactive Recipe','sl-proc':'Step-by-Step Procedure','sl-gami':'Gamified Experience'}[style]||style;
+  var topicLabel={onboarding:'Onboarding',customer:'Customer Service',recipe:'Recipes & Products',system:'System Training',compliance:'Compliance'}[topic]||topic;
+  lines.push({n:topicLabel+' — '+styleLabel+' ('+lenLabel+')',p:base});
+  if((style==='sl-rb'||style==='sl-proc'||style==='sl-gami')&&len==='a')lines.push({n:'📝 Deep Dive quoted at Full Picture rate (interactions = the depth)',p:0});
+  var isRise=style==='rise';var mult=isRise?0.5:1;
+  if(style==='sl-rb'){var rp=tier('rb',1)*mult;lines.push({n:'Recipe Builder ×1 (included)',p:rp});}
+  if(style==='sl-proc'){var pip=tier('pi',1)*mult;lines.push({n:'Procedure Interaction ×1 (included)',p:pip});}
+  Object.keys(W.addons).forEach(function(k){
+    var qty=W.addons[k]||0;
+    if(qty<=0)return;
+    var ap=tier(k,qty)*mult;
+    var lbl={cs:'Customer Scenarios',rb:'Recipe Builders',pi:'Procedure Interactions',ss:'System Simulators'}[k]||k;
+    lines.push({n:lbl+' ×'+qty+' (add-on)',p:ap});
+  });
+  if(W.extras.char)lines.push({n:'Custom Character',p:1500});
+  if(W.extras.vo)lines.push({n:'AI Voice-over',p:700});
+  if(W.extras.alttext)lines.push({n:'Alternative Text (accessibility)',p:400});
+  var tot=lines.reduce(function(s,l){return s+(l.p||0);},0);
+  E.trainPrice=tot;
+  var html=lines.map(function(l){return'<div class="sl"><span class="sl-name">'+l.n+'</span><span class="sl-price">'+(l.p>0?'$'+l.p.toLocaleString():'')+'</span></div>';}).join('');
+  html+='<div class="sl" style="border-top:2px solid rgba(255,255,255,.2);margin-top:6px;padding-top:6px;font-weight:800;"><span class="sl-name" style="color:white">Total estimate</span><span class="sl-price">$'+tot.toLocaleString()+'</span></div>';
+  document.getElementById('sum-lines').innerHTML=html;
+  document.getElementById('sum-total').textContent='$'+tot.toLocaleString()+' USD';
+  updCart();wGoto(5);
+}
+function addTrain(){updCart();openGetQuoteModal();}
+function resetWiz(){
+  W={topic:null,len:null,style:null,addons:{},extras:{char:false,vo:false,alttext:false}};
+  document.querySelectorAll('.tt,.ml,.vsc,.ex').forEach(function(c){c.classList.remove('sel');});
+  document.getElementById('wn0').disabled=true;document.getElementById('wn1').disabled=true;document.getElementById('wn2').disabled=true;
+  E.trainPrice=0;updCart();wGoto(0);
+}
+
+/* Wizard nav */
+function wGoto(step){
+  for(var i=0;i<6;i++){
+    var s=document.getElementById('wstep'+i);
+    var b=document.getElementById('ws'+i);
+    if(s)s.classList.toggle('act',i===step);
+    if(b){b.classList.remove('act','done');if(i<step)b.classList.add('done');else if(i===step)b.classList.add('act');}
+  }
+  var el=document.getElementById('wstep'+step);
+  if(el)el.scrollIntoView({behavior:'smooth',block:'start'});
+}
+function wNext(step){
+  if(step===2)buildStyles();
+  if(step===3)buildAddons();
+  wGoto(step);
+}
+function wBack(step){wGoto(step);}
+
+/* Modal */
+function openVid(e,url){
+  e.stopPropagation();
+  document.getElementById('mvid').src=url;
+  document.getElementById('moverlay').classList.add('open');
+  document.getElementById('mvid').play();
+}
+function closeMod(e){if(e.target.id==='moverlay')closeModBtn();}
+function closeModBtn(){
+  document.getElementById('moverlay').classList.remove('open');
+  var v=document.getElementById('mvid');v.pause();v.src='';
+}
+function gotoCSM(){document.getElementById('csm').scrollIntoView({behavior:'smooth'});}
+
+function openQuoteModal(){
+  var t=total();
+  document.getElementById('qm-total').textContent='$'+t.toLocaleString()+' USD';
+  var p=E.platform;
+  var sections=[];
+  var platItems=[];
+  if(p.skin)platItems.push({n:'Platform Skinning',p:300});
+  if(p.dash)platItems.push({n:'Dashboard Design',p:1200});
+  if(p.hub)platItems.push({n:'Hub Design Package',p:3750});
+  if(p.tmpl)platItems.push({n:'Branded Templates (ACTIV + 3 Training Styles)',p:1700});
+  if(platItems.length)sections.push({title:'Platform Design',items:platItems});
+  var vidItems=[];
+  if(E.editAdded)vidItems.push({n:'Video Editing ('+E.editQty+' video'+(E.editQty>1?'s':'')+')',p:E.editPrice*E.editQty});
+  if(E.prodAdded)vidItems.push({n:'Video Production',p:E.prodPrice});
+  if(vidItems.length)sections.push({title:'Video Production',items:vidItems});
+  if(E.trainPrice>0)sections.push({title:'Training Module',items:[{n:'Interactive Training Course',p:E.trainPrice}]});
+  var html='';
+  if(sections.length===0){
+    html='<div style="text-align:center;padding:20px;color:var(--dark);font-size:14px;">No services selected yet.<br>Go back and add what you need!</div>';
+  } else {
+    sections.forEach(function(sec){
+      html+='<div style="margin-bottom:20px;">';
+      html+='<div style="font-size:11px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--blue2);margin-bottom:10px;">'+sec.title+'</div>';
+      sec.items.forEach(function(item){
+        html+='<div style="display:flex;justify-content:space-between;padding:8px 0;border-bottom:1px solid var(--border);font-size:13px;">'
+          +'<span style="color:var(--text);">'+item.n+'</span>'
+          +'<span style="font-weight:700;color:var(--blue);">$'+item.p.toLocaleString()+'</span>'
+          +'</div>';
+      });
+      html+='</div>';
+    });
+    html+='<div style="display:flex;justify-content:space-between;padding:14px 0;font-size:16px;font-weight:800;border-top:2px solid var(--blue);margin-top:4px;">'
+      +'<span style="color:var(--blue);">Total Estimate</span>'
+      +'<span style="color:var(--orange);">$'+t.toLocaleString()+' USD</span>'
+      +'</div>';
+    html+='<div style="font-size:11px;color:var(--dark);text-align:center;margin-top:8px;">Final pricing confirmed by your CSM · Discounts may apply 🎁</div>';
+  }
+  document.getElementById('qm-body').innerHTML=html;
+  document.getElementById('quote-overlay').style.display='flex';
+}
+
+function closeQuoteIfBg(e){if(e.target.id==='quote-overlay')document.getElementById('quote-overlay').style.display='none';}
+
+function openGetQuoteModal(){
+  document.getElementById('gq-est-inline').textContent=document.getElementById('cart-amt').textContent;
+  document.getElementById('getquote-overlay').style.display='flex';
+}
+
+function closeGetQuoteIfBg(e){if(e.target.id==='getquote-overlay')document.getElementById('getquote-overlay').style.display='none';}
+
+function submitGetQuote(){
+  var name=document.getElementById('gq-name').value.trim();
+  var email=document.getElementById('gq-email').value.trim();
+  var company=document.getElementById('gq-company').value.trim();
+  var msg=document.getElementById('gq-msg').value.trim();
+  if(!name||!email){
+    alert('Please fill in your name and email.');return;
+  }
+  var btn=document.getElementById('gq-submit-btn');
+  btn.textContent='Sending...';
+  btn.style.background='var(--blue2)';
+  btn.disabled=true;
+
+  var p=E.platform;
+  var summaryLines=[];
+  if(p.skin)summaryLines.push('Platform Skinning — $300');
+  if(p.dash)summaryLines.push('Dashboard Design — $1,200');
+  if(p.hub)summaryLines.push('Hub Design Package — $3,750');
+  if(p.tmpl)summaryLines.push('Branded Templates — $1,700');
+  if(E.editAdded)summaryLines.push('Video Editing ('+E.editQty+' video'+(E.editQty>1?'s':'')+') — $'+(E.editPrice*E.editQty).toLocaleString());
+  if(E.prodAdded)summaryLines.push('Video Production — $'+E.prodPrice.toLocaleString());
+  if(E.trainPrice>0)summaryLines.push('Training Module — $'+E.trainPrice.toLocaleString());
+  var totalAmt=document.getElementById('cart-amt').textContent;
+  var summary=summaryLines.length>0?summaryLines.join(' | '):'No services selected yet';
+
+  function resetBtn(){
+    btn.textContent='Send quote request →';
+    btn.style.background='';
+    btn.disabled=false;
+  }
+  function clearForm(){
+    document.getElementById('gq-name').value='';
+    document.getElementById('gq-email').value='';
+    document.getElementById('gq-company').value='';
+    document.getElementById('gq-msg').value='';
+    document.getElementById('getquote-overlay').style.display='none';
+  }
+
+  fetch('https://formspree.io/f/mlgkolkj',{
+    method:'POST',
+    headers:{'Content-Type':'application/json','Accept':'application/json'},
+    body:JSON.stringify({
+      name:name,
+      email:email,
+      company:company||'—',
+      estimate:totalAmt,
+      services:summary,
+      message:msg||'—',
+      _subject:'[Build With Us] Quote Request from '+(company||name),
+      _replyto:email
+    })
+  })
+  .then(function(r){return r.json().then(function(d){return {status:r.status,data:d};});})
+  .then(function(res){
+    if(res.status===200||res.data.ok){
+      btn.textContent='✓ Quote sent!';
+      btn.style.background='#059669';
+      setTimeout(function(){clearForm();resetBtn();},3000);
+    } else if(res.status===422&&res.data.errors){
+      // Formspree validation error - show it
+      var errMsg=res.data.errors.map(function(e){return e.message;}).join('. ');
+      btn.textContent='⚠ '+errMsg;
+      btn.style.background='#dc2626';
+      setTimeout(function(){resetBtn();},5000);
+    } else if(res.status===303||res.data.next){
+      // Redirect response - success
+      btn.textContent='✓ Quote sent!';
+      btn.style.background='#059669';
+      setTimeout(function(){clearForm();resetBtn();},3000);
+    } else {
+      // Unknown - try mailto fallback
+      var subject=encodeURIComponent('[Build With Us] Quote from '+(company||name));
+      var body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nCompany: '+(company||'—')+'\nEstimate: '+totalAmt+'\nServices: '+summary+(msg?'\nMessage: '+msg:''));
+      window.open('mailto:paula.mesa@franconnect.com?subject='+subject+'&body='+body,'_blank');
+      btn.textContent='Email opened as backup';
+      btn.style.background='#059669';
+      setTimeout(function(){clearForm();resetBtn();},3000);
+    }
+  })
+  .catch(function(err){
+    // Network blocked — open mailto
+    var subject=encodeURIComponent('[Build With Us] Quote from '+(company||name));
+    var body=encodeURIComponent('Name: '+name+'\nEmail: '+email+'\nCompany: '+(company||'—')+'\nEstimate: '+totalAmt+'\nServices: '+summary+(msg?'\nMessage: '+msg:''));
+    window.open('mailto:paula.mesa@franconnect.com?subject='+subject+'&body='+body,'_blank');
+    btn.textContent='Email opened as backup';
+    btn.style.background='#059669';
+    setTimeout(function(){clearForm();resetBtn();},3000);
+  });
+}
+
+function openTCModal(){document.getElementById('tc-overlay').style.display='flex';}
+function closeTCIfBg(e){if(e.target.id==='tc-overlay')document.getElementById('tc-overlay').style.display='none';}
+
+function openCSMModal(){openGetQuoteModal();}
+function closeCSMIfBg(e){closeGetQuoteIfBg(e);}
+function submitCSM(){submitGetQuote();}
+
+/* Init */
+document.getElementById('eslider').style.setProperty('--pct','0%');
+updCart();
+</script>
+</body>
+</html>
