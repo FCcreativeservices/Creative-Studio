@@ -1111,10 +1111,14 @@ function updProd(s){
   updCart();
 }
 function addProd(){
+  if(E.prodPrice<=0){
+    document.getElementById('pprice').textContent='Select a type and set a duration first';
+    return;
+  }
   E.prodAdded=true;
   var b=document.getElementById('pbtn');
   b.style.background='#059669';
-  b.innerHTML='✓ Added! <span id="ptotal">$'+E.prodPrice.toLocaleString()+'</span>';
+  b.innerHTML='&#10003; Added! <span id="ptotal">$'+E.prodPrice.toLocaleString()+'</span>';
   updCart();
   setTimeout(function(){
     b.style.background='';
