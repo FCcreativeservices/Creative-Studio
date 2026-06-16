@@ -974,29 +974,61 @@ footer .fl{font-size:12px;font-weight:600;color:rgba(255,255,255,.35);}
       <div style="font-size:13px;color:rgba(255,255,255,.65);margin-top:6px;">We'll review your selections and get back to you within 1 business day.</div>
     </div>
     <div style="padding:24px 32px;">
-      <div style="margin-bottom:14px;">
-        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Your name</label>
-        <input id="gq-name" type="text" placeholder="First Last" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+      <!-- Success message -->
+      <div data-fs-success style="display:none;text-align:center;padding:20px 0;">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" style="margin-bottom:12px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>
+        <div style="font-size:18px;font-weight:800;color:var(--blue);margin-bottom:6px;">Quote sent!</div>
+        <div style="font-size:13px;color:var(--dark);">We'll be in touch within 1 business day.</div>
       </div>
-      <div style="margin-bottom:14px;">
-        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Work email</label>
-        <input id="gq-email" type="email" placeholder="you@brand.com" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
-      </div>
-      <div style="margin-bottom:14px;">
-        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Company / Brand</label>
-        <input id="gq-company" type="text" placeholder="Your franchise name" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
-      </div>
-      <div style="margin-bottom:20px;">
-        <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Anything to add? (optional)</label>
-        <textarea id="gq-msg" placeholder="Timeline, specific needs, questions..." rows="3" style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;resize:none;"></textarea>
-      </div>
-      <div style="background:var(--off);border-radius:var(--rad-sm);padding:12px 14px;margin-bottom:16px;font-size:12px;color:var(--dark);">
-        <strong style="color:var(--blue);">Your estimate:</strong> <span id="gq-est-inline">$0 USD</span>
-      </div>
-      <button onclick="submitGetQuote()" id="gq-submit-btn" style="width:100%;padding:14px;border-radius:40px;background:var(--orange);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;">Send quote request →</button>
+      <!-- Error message -->
+      <div data-fs-error style="display:none;background:#fdf0ee;border:1px solid #f0c0b8;border-radius:var(--rad-sm);padding:12px 14px;margin-bottom:14px;font-size:13px;color:#b03020;"></div>
+      <!-- Form -->
+      <form id="gq-form" action="https://formspree.io/f/mlgkolkj" method="POST">
+        <!-- Hidden fields for estimate data -->
+        <input type="hidden" name="estimate" id="gq-est-hidden">
+        <input type="hidden" name="services" id="gq-svc-hidden">
+        <input type="hidden" name="_subject" id="gq-subj-hidden">
+
+        <div style="margin-bottom:14px;">
+          <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Your name</label>
+          <input name="name" id="gq-name" type="text" placeholder="First Last" required data-fs-field
+            style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+          <span data-fs-error="name" style="font-size:11px;color:#b03020;"></span>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Work email</label>
+          <input name="email" id="gq-email" type="email" placeholder="you@brand.com" required data-fs-field
+            style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+          <span data-fs-error="email" style="font-size:11px;color:#b03020;"></span>
+        </div>
+        <div style="margin-bottom:14px;">
+          <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Company / Brand</label>
+          <input name="company" id="gq-company" type="text" placeholder="Your franchise name"
+            style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;">
+        </div>
+        <div style="margin-bottom:20px;">
+          <label style="font-size:12px;font-weight:600;color:var(--blue);display:block;margin-bottom:5px;">Anything to add? (optional)</label>
+          <textarea name="message" id="gq-msg" placeholder="Timeline, specific needs, questions..." rows="3"
+            style="width:100%;padding:10px 14px;border:1.5px solid var(--border);border-radius:var(--rad-sm);font-size:14px;font-family:'Poppins',sans-serif;outline:none;resize:none;"></textarea>
+        </div>
+        <div style="background:var(--off);border-radius:var(--rad-sm);padding:12px 14px;margin-bottom:16px;font-size:12px;color:var(--dark);">
+          <strong style="color:var(--blue);">Your estimate:</strong> <span id="gq-est-inline">$0 USD</span>
+        </div>
+        <button type="submit" id="gq-submit-btn" data-fs-submit-btn
+          style="width:100%;padding:14px;border-radius:40px;background:var(--orange);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:'Poppins',sans-serif;transition:.2s;">
+          Send quote request →
+        </button>
+      </form>
     </div>
   </div>
 </div>
+
+<!-- Formspree SDK -->
+<script>
+  window.formspree = window.formspree || function(){(formspree.q=formspree.q||[]).push(arguments);};
+  formspree('initForm',{formElement:'#gq-form',formId:'mlgkolkj'});
+</script>
+<script src="https://unpkg.com/@formspree/ajax@1" defer></script>
 
 <script>
 /* ── STATE ── */
@@ -1529,21 +1561,9 @@ function openQuoteModal(){
 function closeQuoteIfBg(e){if(e.target.id==='quote-overlay')document.getElementById('quote-overlay').style.display='none';}
 
 function openGetQuoteModal(){
-  document.getElementById('gq-est-inline').textContent=document.getElementById('cart-amt').textContent;
-  document.getElementById('getquote-overlay').style.display='flex';
-}
-
-function closeGetQuoteIfBg(e){if(e.target.id==='getquote-overlay')document.getElementById('getquote-overlay').style.display='none';}
-
-function submitGetQuote(){
-  var name=document.getElementById('gq-name').value.trim();
-  var email=document.getElementById('gq-email').value.trim();
-  var company=document.getElementById('gq-company').value.trim();
-  var msg=document.getElementById('gq-msg').value.trim();
-  if(!name||!email){alert('Please fill in your name and email.');return;}
-  var btn=document.getElementById('gq-submit-btn');
-  btn.textContent='Sending...';btn.style.background='var(--blue2)';btn.disabled=true;
-
+  var totalAmt=document.getElementById('cart-amt').textContent;
+  document.getElementById('gq-est-inline').textContent=totalAmt;
+  // Populate hidden fields with estimate data
   var p=E.platform;
   var lines=[];
   if(p.skin)lines.push('Platform Skinning — $300');
@@ -1552,49 +1572,28 @@ function submitGetQuote(){
   if(p.tmpl)lines.push('Branded Templates — $1,700');
   if(E.editAdded)lines.push('Video Editing ('+E.editQty+' video'+(E.editQty>1?'s':'')+'): $'+(E.editPrice*E.editQty).toLocaleString());
   if(E.prodAdded)lines.push('Video Production: $'+E.prodPrice.toLocaleString());
-  if(E.trainCourses.length>0){
-    E.trainCourses.forEach(function(c,i){
-      lines.push('Training Course '+(i+1)+' ('+c.label+'): $'+c.price.toLocaleString());
-    });
-  }
-  var totalAmt=document.getElementById('cart-amt').textContent;
+  if(E.trainCourses.length>0){E.trainCourses.forEach(function(c,i){lines.push('Training Course '+(i+1)+' ('+c.label+'): $'+c.price.toLocaleString());});}
   var summary=lines.length>0?lines.join(' | '):'No services selected';
-
-  var fd=new FormData();
-  fd.append('name',name);
-  fd.append('email',email);
-  fd.append('company',company||'—');
-  fd.append('estimate',totalAmt);
-  fd.append('services',summary);
-  fd.append('message',msg||'—');
-  fd.append('_subject','[Build With Us] Quote from '+(company||name));
-  fd.append('_replyto',email);
-
-  fetch('https://formspree.io/f/mlgkolkj',{
-    method:'POST',
-    headers:{'Accept':'application/json'},
-    body:fd
-  })
-  .then(function(r){return r.json().then(function(d){return{status:r.status,data:d};});})
-  .then(function(res){
-    if(res.status===200||res.data.ok||res.data.next){
-      btn.textContent='✓ Quote sent!';
-      btn.style.background='#059669';
-      setTimeout(function(){window.location.reload();},2500);
-    } else {
-      var err=res.data.errors?res.data.errors.map(function(e){return e.message;}).join(', '):'Please try again';
-      btn.textContent='⚠ '+err;
-      btn.style.background='#dc2626';
-      setTimeout(function(){btn.textContent='Send quote request →';btn.style.background='';btn.disabled=false;},4000);
-    }
-  })
-  .catch(function(){
-    btn.textContent='⚠ Connection error — try again';
-    btn.style.background='#dc2626';
-    setTimeout(function(){btn.textContent='Send quote request →';btn.style.background='';btn.disabled=false;},4000);
-  });
+  var nameEl=document.getElementById('gq-name');
+  var companyEl=document.getElementById('gq-company');
+  var estHidden=document.getElementById('gq-est-hidden');
+  var svcHidden=document.getElementById('gq-svc-hidden');
+  var subjHidden=document.getElementById('gq-subj-hidden');
+  if(estHidden)estHidden.value=totalAmt;
+  if(svcHidden)svcHidden.value=summary;
+  if(subjHidden)subjHidden.value='[Build With Us] Quote from '+(companyEl&&companyEl.value?companyEl.value:nameEl&&nameEl.value?nameEl.value:'a visitor');
+  document.getElementById('getquote-overlay').style.display='flex';
 }
 
+function closeGetQuoteIfBg(e){if(e.target.id==='getquote-overlay')document.getElementById('getquote-overlay').style.display='none';}
+
+function submitGetQuote(){
+  // Handled by Formspree SDK
+}
+
+function submitGetQuote(){
+  // Handled by Formspree SDK - this is a no-op kept for compatibility
+}
 function openTCModal(){document.getElementById('tc-overlay').style.display='flex';}
 function closeTCIfBg(e){if(e.target.id==='tc-overlay')document.getElementById('tc-overlay').style.display='none';}
 
