@@ -342,6 +342,14 @@ nav{
 .wbtn-next:disabled{opacity:.35;cursor:not-allowed;transform:none;}
 .recipe-note{background:rgba(224,115,0,.08);border:1px solid rgba(224,115,0,.22);border-radius:var(--rad-sm);padding:12px 16px;text-align:center;font-size:12px;color:#7a3a0a;margin-bottom:20px;}
 
+.vsc-placeholder{
+  background:linear-gradient(135deg,var(--blue),var(--blue2));
+  position:relative;
+}
+.vsc-placeholder::after{
+  content:'';position:absolute;inset:0;
+  background:repeating-linear-gradient(45deg,rgba(255,255,255,.03) 0px,rgba(255,255,255,.03) 1px,transparent 1px,transparent 8px);
+}
 /* ── ADDON STEPPER CARD ── */
 .ao-stepper-card{
   background:white;border-radius:var(--radius);border:2px solid var(--border);
@@ -1169,17 +1177,17 @@ var ASSETS={
   onboarding:{
     activ:{c:'IMG_Training%20Modules_Cover_Onboarding%20Training_ACTIV.png',v:'VID_Training%20Modules_Onboarding%20Training_ACTIV.mp4'},
     rise:{c:'IMG_Training%20Modules_Cover_Onboarding%20Training_RISE.png',v:'VID_Training%20Modules_Onboarding%20Training_RISE.mp4'},
-    sl:{c:'IMG_Training%20Modules_Cover_Onboarding%20Training_ACTIV.png',v:null}
+    sl:{c:null,v:null}
   },
   customer:{
     activ:{c:'IMG_Training%20Modules_Cover_Customer%20Service%20Training_ACTIV.png',v:'VID_Training%20Modules_Customer%20Experience_ACTIV.mp4'},
-    rise:{c:'IMG_Training%20Modules_Cover_Customer%20Service%20Training_ACTIV.png',v:null},
-    sl:{c:'IMG_Training%20Modules_Cover_Customer%20Service%20Training_ACTIV.png',v:null}
+    rise:{c:null,v:null},
+    sl:{c:null,v:null}
   },
   compliance:{
     activ:{c:'IMG_Training%20Modules_Cover_Compliance%20Training_ACTIV.png',v:'VID_Training%20Modules_Compliance_ACTIV.mp4'},
-    rise:{c:'IMG_Training%20Modules_Cover_Compliance%20Training_ACTIV.png',v:null},
-    sl:{c:'IMG_Training%20Modules_Cover_Compliance%20Training_ACTIV.png',v:null}
+    rise:{c:null,v:null},
+    sl:{c:null,v:null}
   },
   system:{
     activ:{c:'IMG_Training%20Modules_Cover_System%20Training_ACTIV.png',v:'VID_Training%20Modules_System%20Training_ACTIV.mp4'},
@@ -1227,7 +1235,8 @@ function buildStyles(){
   hint.textContent=W.topic==='recipe'?'Five ways to bring your recipes to life.':'Three ways to bring your content to life.';
   defs.forEach(function(d){
     var a=ASSETS[W.topic]&&ASSETS[W.topic][d.key];
-    var cov=a?BASE+a.c:'';
+    var isPlaceholder=a&&a.c===null;
+    var cov=a&&a.c?BASE+a.c:'';
     var vid=a&&a.v?BASE+a.v:null;
     var tool=d.key.indexOf('sl')===0?'sl':d.key;
     var lvl=W.len||'s';
@@ -1235,8 +1244,22 @@ function buildStyles(){
     var price=(BP[tool]||BP.sl)[lvl]||0;
     var playBtn=vid?'<div class="vsc-play" onclick="openVid(event,\''+vid+'\')"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polygon points="10 8 16 12 10 16 10 8" stroke-width="1.5"/></svg></div>':'';
     var noteHtml=d.note?'<div class="vsc-note">✦ '+d.note+'</div>':'';
+
+    var mediaHtml;
+    if(isPlaceholder){
+      mediaHtml='<div class="vsc-media vsc-placeholder">'
+        +'<div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:10px;padding:16px;">'
+        +'<svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.6)" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>'
+        +'<div style="font-size:16px;font-weight:800;color:white;letter-spacing:-.01em;">Stay Tuned</div>'
+        +'<div style="font-size:11px;color:rgba(255,255,255,.55);text-align:center;line-height:1.4;">Big things coming<br>for this one</div>'
+        +'</div>'
+        +'</div>';
+    } else {
+      mediaHtml='<div class="vsc-media"><img src="'+cov+'" alt="'+d.name+'" loading="lazy">'+playBtn+'</div>';
+    }
+
     grid.innerHTML+='<div class="vsc" data-style="'+d.key+'">'
-      +'<div class="vsc-media"><img src="'+cov+'" alt="'+d.name+'" loading="lazy">'+playBtn+'</div>'
+      +mediaHtml
       +'<div class="vsc-body">'
       +'<div class="vsc-name">'+d.name+'</div>'
       +'<div class="vsc-desc">'+d.desc+'</div>'
@@ -1531,16 +1554,68 @@ function closeQuoteIfBg(e){if(e.target.id==='quote-overlay')document.getElementB
 function openGetQuoteModal(){
   var totalAmt=document.getElementById('cart-amt').textContent;
   document.getElementById('gq-est-inline').textContent=totalAmt;
-  var p=E.platform;var lines=[];
-  if(p.skin)lines.push('Platform Skinning — $300');
-  if(p.dash)lines.push('Dashboard Design — $1,200');
-  if(p.hub)lines.push('Hub Design Package — $3,750');
-  if(p.tmpl)lines.push('Branded Templates — $1,700');
-  if(E.editAdded)lines.push('Video Editing ('+E.editQty+'x): $'+(E.editPrice*E.editQty).toLocaleString());
-  if(E.prodAdded)lines.push('Video Production: $'+E.prodPrice.toLocaleString());
-  if(E.trainCourses.length>0){E.trainCourses.forEach(function(c,i){lines.push('Course '+(i+1)+' ('+c.label+'): $'+c.price.toLocaleString());});}
+  var p=E.platform;
+  var sections=[];
+
+  // Platform
+  var platLines=[];
+  if(p.skin)platLines.push('Platform Skinning — $300');
+  if(p.dash)platLines.push('Dashboard Design — $1,200');
+  if(p.hub)platLines.push('Hub Design Package — $3,750');
+  if(p.tmpl)platLines.push('Branded Templates — $1,700');
+  if(platLines.length)sections.push({title:'Platform Design',lines:platLines});
+
+  // Video
+  var vidLines=[];
+  if(E.editAdded){
+    var editLabel={0:'Format only',1:'Under 5 min',2:'5–15 min',3:'15–30 min',4:'30–45 min'};
+    var sliderVal=document.getElementById('eslider')?parseInt(document.getElementById('eslider').value)||0:0;
+    vidLines.push('Video Editing — '+E.editQty+' video'+(E.editQty>1?'s':'')+' ('+( editLabel[sliderVal]||'')+'): $'+(E.editPrice*E.editQty).toLocaleString());
+  }
+  if(E.prodAdded){
+    var ptLabel={sc:'Screencast',promo:'Promotional',mg:'Motion Graphic'};
+    var ptVal=document.querySelector('.ptb.on');
+    var ptName=ptVal?ptVal.textContent:'Production';
+    var hasScript=document.getElementById('pscript')&&document.getElementById('pscript').checked;
+    var hasVo=document.getElementById('pvo')&&document.getElementById('pvo').checked;
+    var prodLine='Video Production — '+ptName+': $'+E.prodPrice.toLocaleString();
+    var prodExtras=[];
+    if(hasScript)prodExtras.push('Script Writing');
+    if(hasVo)prodExtras.push('AI Voice-over');
+    if(prodExtras.length)prodLine+=' (includes '+prodExtras.join(' + ')+')';
+    vidLines.push(prodLine);
+  }
+  if(vidLines.length)sections.push({title:'Video Production',lines:vidLines});
+
+  // Training courses - full detail
+  if(E.trainCourses.length>0){
+    var trainLines=[];
+    E.trainCourses.forEach(function(c,i){
+      trainLines.push('Course '+(i+1)+': '+c.label+' — $'+c.price.toLocaleString());
+      if(c.lines&&c.lines.length>1){
+        c.lines.slice(1).forEach(function(l){
+          if(l.p>0)trainLines.push('  ↳ '+l.n+' — $'+l.p.toLocaleString());
+        });
+      }
+    });
+    sections.push({title:'Training Modules ('+E.trainCourses.length+' course'+(E.trainCourses.length>1?'s':'')+')',lines:trainLines});
+  }
+
+  // Build plain text for email (bullet points)
+  var emailBody='ESTIMATE: '+totalAmt+'\n\n';
+  if(sections.length===0){
+    emailBody+='No services selected.';
+  } else {
+    sections.forEach(function(s){
+      emailBody+=s.title.toUpperCase()+'\n';
+      s.lines.forEach(function(l){emailBody+='• '+l+'\n';});
+      emailBody+='\n';
+    });
+    emailBody+='TOTAL: '+totalAmt;
+  }
+
   document._gqEstimate=totalAmt;
-  document._gqServices=lines.length>0?lines.join(' | '):'No services selected';
+  document._gqServices=emailBody;
   document.getElementById('getquote-overlay').style.display='flex';
 }
 function closeGetQuoteModal(){
@@ -1558,31 +1633,38 @@ function submitGetQuote(){
   errEl.style.display='none';
   var btn=document.getElementById('gq-submit-btn');
   btn.textContent='Sending...';btn.style.background='var(--blue2)';btn.disabled=true;
+
   var fd=new FormData();
-  fd.append('name',name);fd.append('email',email);fd.append('company',company||'—');
+  fd.append('access_key','7e9c4844-2939-442f-acbe-d6301557c6d2');
+  fd.append('name',name);
+  fd.append('email',email);
+  fd.append('company',company||'—');
   fd.append('estimate',document._gqEstimate||'$0 USD');
   fd.append('services',document._gqServices||'No services selected');
   fd.append('message',msg||'—');
-  fd.append('_subject','[Build With Us] Quote from '+(company||name));
-  fd.append('_replyto',email);
-  fetch('https://formspree.io/f/mlgkolkj',{method:'POST',headers:{'Accept':'application/json'},body:fd})
-  .then(function(r){return r.json().then(function(d){return{s:r.status,d:d};});})
-  .then(function(res){
-    if(res.s===200||res.d.ok){
+  fd.append('subject','[Build With Us] Quote from '+(company||name));
+  fd.append('replyto',email);
+  fd.append('from_name','Build With Us — FranConnect Creative Services');
+
+  fetch('https://api.web3forms.com/submit',{method:'POST',body:fd})
+  .then(function(r){return r.json();})
+  .then(function(data){
+    if(data.success){
       document.getElementById('gq-form-wrap').innerHTML=
-        '<div style="text-align:center;padding:24px 0;">'
-        +'<svg width="52" height="52" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="2" style="margin-bottom:14px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
-        +'<div style="font-size:20px;font-weight:800;color:var(--blue);margin-bottom:20px;">Quote sent! \u2705</div>'
+        '<div style="text-align:center;padding:32px 20px;">'
+        +'<svg width="56" height="56" viewBox="0 0 24 24" fill="none" stroke="#059669" stroke-width="1.8" style="margin-bottom:16px;"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg>'
+        +'<div style="font-size:22px;font-weight:800;color:var(--blue);margin-bottom:10px;">Quote sent!</div>'
+        +'<div style="font-size:14px;color:var(--dark);line-height:1.6;margin-bottom:24px;">We\'ll be in touch soon — thank you for your interest in FranConnect Creative Services! We\'re excited to bring your vision to life. 🎉</div>'
         +'<button onclick="window.location.reload()" style="padding:12px 32px;border-radius:40px;background:var(--blue);border:none;color:white;font-size:14px;font-weight:700;cursor:pointer;font-family:\'Poppins\',sans-serif;">Close</button>'
         +'</div>';
     } else {
-      var err=res.d.errors?res.d.errors.map(function(e){return e.message;}).join(', '):'Something went wrong. Please try again.';
-      errEl.textContent=err;errEl.style.display='block';
+      errEl.textContent=data.message||'Something went wrong. Please try again.';
+      errEl.style.display='block';
       btn.textContent='Send quote request →';btn.style.background='';btn.disabled=false;
     }
   })
   .catch(function(){
-    errEl.textContent='Connection error. Please check your internet and try again.';
+    errEl.textContent='Connection error. Please try again.';
     errEl.style.display='block';
     btn.textContent='Send quote request →';btn.style.background='';btn.disabled=false;
   });
