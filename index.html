@@ -587,7 +587,7 @@ footer .fl{font-size:12px;font-weight:600;color:rgba(255,255,255,.35);}
         <button class="pc-btn" id="pb-hub">Add to estimate</button>
       </div>
     </div>
-    <div class="pc" id="pc-tmpl" onclick="toggleP('tmpl',1850)">
+    <div class="pc" id="pc-tmpl" onclick="toggleP('tmpl',1800)">
       <div class="pc-media">
         <img src="https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/IMG_Training%20Modules_Cover_ACTIV%20%26%20eLearning%20Training.png" alt="Templates" loading="lazy">
         <div class="pc-play" onclick="openVid(event,'https://raw.githubusercontent.com/FCcreativeservices/Creative-Studio/main/VID_Platform%20Design_Training%20Templates.mp4')">
@@ -597,7 +597,7 @@ footer .fl{font-size:12px;font-weight:600;color:rgba(255,255,255,.35);}
       <div class="pc-body">
         <div class="pc-name">Branded Templates</div>
         <div class="pc-desc">ACTIV platform template + 1 eLearning training style ready to use across all your modules — all perfectly on-brand.</div>
-        <div class="pc-price">$1,850 <span>package</span></div>
+        <div class="pc-price">$1,800 <span>package</span></div>
         <button class="pc-btn" id="pb-tmpl">Add to estimate</button>
       </div>
     </div>
@@ -1044,7 +1044,7 @@ function tier(type,qty){
 function total(){
   var t=0;var p=E.platform;
   if(p.skin)t+=300;if(p.dash)t+=2100;if(p.hub)t+=3750;
-  if(p.tmpl)t+=1850;
+  if(p.tmpl)t+=1800;
   if(E.editAdded)t+=E.editPrice*E.editQty;
   if(E.prodAdded)t+=E.prodPrice;
   E.trainCourses.forEach(function(c){t+=c.price;});
@@ -1509,7 +1509,7 @@ function openQuoteModal(){
   if(p.skin)platItems.push({n:'Platform Skinning',p:300,key:'skin'});
   if(p.dash)platItems.push({n:'Dashboard Design',p:2100,key:'dash'});
   if(p.hub)platItems.push({n:'Hub Design Package',p:3750,key:'hub'});
-  if(p.tmpl)platItems.push({n:'Branded Templates (ACTIV + 1 Training Style)',p:1850,key:'tmpl'});
+  if(p.tmpl)platItems.push({n:'Branded Templates (ACTIV + 1 Training Style)',p:1800,key:'tmpl'});
   if(platItems.length)sections.push({title:'Platform Design',items:platItems});
   var vidItems=[];
   if(E.editAdded)vidItems.push({n:'Video Editing ('+E.editQty+' video'+(E.editQty>1?'s':'')+')',p:E.editPrice*E.editQty,key:'edit'});
@@ -1566,7 +1566,7 @@ function openGetQuoteModal(){
   if(p.skin)platLines.push('Platform Skinning — $300');
   if(p.dash)platLines.push('Dashboard Design — $2,100');
   if(p.hub)platLines.push('Hub Design Package — $3,750');
-  if(p.tmpl)platLines.push('Branded Templates — $1,850');
+  if(p.tmpl)platLines.push('Branded Templates — $1,800');
   if(platLines.length)sections.push({title:'Platform Design',lines:platLines});
 
   // Video
